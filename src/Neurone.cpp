@@ -6,5 +6,6 @@
  */
 
 
-
-
+struct Neurone {
+	// TODO
+};
