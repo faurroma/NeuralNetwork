@@ -23,7 +23,7 @@ class Model
 		lossFunction = lossFct;
 	}
 
-	void add(Layer& lay, string& activation) {
+	void add(Layer lay, string activation) {
 		layers.push_back(lay);
 		activationFunctions.push_back(activation);
 	}
