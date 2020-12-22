@@ -14,6 +14,11 @@ void sigmoid(vector<double> values){
 		values[i] = exp(values[i])/(exp(values[i]) + 1);
 	}
 }
+void sigmoid_prime(vector<double> values){
+	for(int i = 0; i < values.size(); i++){
+		values[i] = exp(-values[i])/(exp(-values[i]) + 1)/(exp(-values[i]) + 1);
+	}
+}
 
 void identity(vector<double> values){
 }
