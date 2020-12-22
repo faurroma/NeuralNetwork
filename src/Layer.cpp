@@ -30,7 +30,7 @@ class Layer
 		{
 			for(int j = 0; j<neuronesEntree; j++)
 			{
-				weight[i][j] = rand() % 100;
+				weight[i][j] = rand()/RAND_MAX;
 			}
 		}
 		
