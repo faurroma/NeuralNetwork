@@ -20,22 +20,23 @@ class Layer
 	 */
 	Layer(int neuronesEntree, int neuronesSortie)
 	{
-		vector<vector<double>> weight(neuronesEntree);
-		for(int i = 0; i<neuronesEntree; i++)
+		vector<vector<double>> weight(neuronesSortie);
+		for(int i = 0; i<neuronesSortie; i++)
 		{
-			weight[i].resize(neuronesSortie);
+			weight[i].resize(neuronesEntree);
 		}
 		
-		for(int i = 0; i<neuronesEntree; i++)
+		for(int i = 0; i<neuronesSortie; i++)
 		{
-			for(int j = 0; j<neuronesSortie; j++)
+			for(int j = 0; j<neuronesEntree; j++)
 			{
 				weight[i][j] = rand() % 100;
 			}
 		}
 		
 		w = weight;
-		vector<double> bias(neuronesSortie);
+		vector<double> bias(neuronesSortie, 0);
+		b = bias;
 		
 	}
 	
@@ -52,7 +53,7 @@ class Layer
 		b.clear();
 	}
 	
-	vector<double> forwardPropagation(vector<double> const& input){
+	vector<double> forwardPropagation(vector<double>& input){
 		vector<double> output;
 		for (int n = 0; n < w.size(); n++){
 			// Calcul sum xi*wij
