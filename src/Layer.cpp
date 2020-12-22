@@ -3,20 +3,29 @@
  *
  *  Created on: 21 déc. 2020
  *      Author: faureromain
+ * <3 <3 Tichahhh <3 <3
  */
-
 #include <iostream>
-#include "Layer.h"
+#include <vector>
+
+using namespace std;
+using std::vector;
 
 class Layer
 {
 	public:
 	
 	// Constructeur avec valeurs
-	Layer(double in[], double out[])
+	Layer(vector<double> in, int nbSortie, vector<vector<double>> weight, vector<double> bias)
 	{
 		entree = in;
-		sortie = out;
+		nombreEntree = sizeof(in);
+		nombreSortie = nbSortie;
+		w = weight;
+		b = bias;
+		for ( int i = 0 ; i < nombreEntree; i++ )
+		   dEW[i].resize(nombreSortie);
+		
 	}
 	
 	// Constructeur par défaut
@@ -25,28 +34,29 @@ class Layer
 	// Destructeur
 	
 	~Layer(){
-		if(entree!= NULL){
-			delete[] entree;
-		}
-		if(sortie!= NULL){
-			delete[] sortie;
-		}
+		delete &nombreEntree;
+		delete &nombreSortie;
+		delete &entree;
+		delete &sortie;
+		delete &dEX;
+		delete &dEB;
+		delete &dEW;
+		delete &w;
+		delete &b;
 	}
 	
-	void forwardPropagation(double w[][], double b[]){
+	void forwardPropagation(){
 		for (int j = 0; j < nombreSortie; j++){
 			// Calcul sum xi*wij
 			double s = 0;
 			for (int i = 0; i < nombreEntree; i++){
-				s += x[i] + w[i][j];
+				s += b[i] + w[i][j];
 			}
-			y[j] = b[j] + s;
-		}
-		// Activation 
-		
+			sortie[j] = b[j] + s;
+		}		
 	}
 		
-	void backwardPropagation(double dEY[]){
+	void backwardPropagation(vector<double> dEY){
 		// Calcul de dE/dw
 		for(int i = 0; i < nombreEntree; i++){
 			for (int j = 0; j < nombreSortie; j++){
@@ -67,18 +77,16 @@ class Layer
 		}
 	}
 	
-	virtual void forwardActivation();
-	
-	virtual void backwardActivation();
-	
 	private:
-		int const nombreEntree;
-		double entree[nombreEntree];
-		int const nombreSortie;
-		double nombreSortie[];
-		double dEW[nombreEntree][nombreSortie];
-		double dEB[nombreSortie];
-		double dEX[nombreSortie];
-		
+
+		int nombreEntree;
+		vector<double> entree;
+		int nombreSortie;
+		vector<double> sortie = vector<double>(nombreSortie, 0);
+		vector<double> dEB = vector<double>(nombreSortie, 0);
+		vector<double> dEX = vector<double>(nombreEntree, 0);
+		vector<vector<double>> dEW;
+		vector<vector<double>> w;
+		vector<double> b;
 		
 };
