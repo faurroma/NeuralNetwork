@@ -8,6 +8,7 @@
 #ifndef INCLUDE_MODEL_H_
 #define INCLUDE_MODEL_H_
 
+#include <string>
 
 class Model {
 	public:

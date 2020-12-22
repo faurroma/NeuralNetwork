@@ -15,9 +15,10 @@ using std::vector;
 class Layer
 {
 	public:
-	
-	// Constructeur avec valeurs
-	Layer(int& neuronesEntree, int& neuronesSortie)
+	/* Constructeur avec valeurs
+	 *
+	 */
+	Layer(int neuronesEntree, int neuronesSortie)
 	{
 		vector<vector<double>> weight(neuronesEntree);
 		for(int i = 0; i<neuronesEntree; i++)
@@ -51,7 +52,7 @@ class Layer
 		b.clear();
 	}
 	
-	vector<double> &forwardPropagation(vector<double> const& input){
+	vector<double> forwardPropagation(vector<double> const& input){
 		vector<double> output;
 		for (int n = 0; n < w.size(); n++){
 			// Calcul sum xi*wij
@@ -64,24 +65,24 @@ class Layer
 		return output;
 	}
 
-	vector<double> &backwardPropagation(vector<double>& dEY, vector<double> const& entree, double const& learningRate){
+	vector<double> backwardPropagation(vector<double>& dEY, vector<double> const& entree, double const& learningRate){
 		int nombreSortie = dEY.size();
 		int nombreEntree = entree.size();
 		// Calcul de dE/dw
 		vector<vector<double>> dEW(nombreEntree);
 		for(int i = 0; i < nombreEntree; i++)
 		{
-			dEW[i].resize(nombreSortie);
-		}	
-		for(int i = 0; i < nombreEntree; i++){
-			for (int j = 0; j < nombreSortie; j++){
-				dEW[i][j] = dEY[j]*entree[i];
+			for(int i = 0; i < nombreEntree; i++){
+				for (int j = 0; j < nombreSortie; j++){
+					dEW[i].push_back(dEY[j]*entree[i]);
+				}
 			}
-		}
+		}	
+
 		// Mise à jour de w
 		for (int i = 0; i < nombreEntree; i++){
 			for (int j = 0; j < nombreSortie; j++){
-				w[i][j] -= learningRate * dEW[i][j];
+			    w[i][j] -= learningRate * dEW[i][j];
 			}
 		}
 		// dE/db = dE/dy

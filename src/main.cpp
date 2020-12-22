@@ -6,10 +6,17 @@
  */
 #include <iostream>
 #include <string>
+#include "Layer.h"
+#include "Model.h"
 
-using namespace std;
+
 
 int main(){
 	cout << "Test" << endl;
+	Model testMod("test", 0.001);
+	testMod.add(Layer(5, 6), "sigmoid");
+	testMod.add(Layer(6,3), "identity");
+	cout << "Sucess !" << endl;
+
 }
 
