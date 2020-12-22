@@ -17,19 +17,19 @@ class Model
 {
 	public:
 	// Constructeur avec valeurs
-	Model(string lossFct, double learningR) {
+	Model(string& lossFct, double& learningR) {
 		cout << "New sequential network" << endl;
 		learningRate = learningR;
 		lossFunction = lossFct;
 	}
 
-	void add(Layer lay, string activation) {
+	void add(Layer& lay, string& activation) {
 		layers.push_back(lay);
 		activationFunctions.push_back(activation);
 	}
 
 
-	vector<double> getOutputFor(vector<double> input){
+	vector<double> &getOutputFor(vector<double>& input){
 
 		// Copie de input dans un vecteur output qui va changer de couche
 		// en couche
@@ -55,7 +55,7 @@ class Model
 
 
 
-		void activate(vector<double> values, string function){
+		void activate(vector<double>& values, string& function){
 			if (function == "sigmoid")         sigmoid(values);
 			else if (function == "identity")   identity(values);
 			else if (function == "step")       step(values);

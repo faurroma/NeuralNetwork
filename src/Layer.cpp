@@ -17,7 +17,7 @@ class Layer
 	public:
 	
 	// Constructeur avec valeurs
-	Layer(int neuronesEntree, int neuronesSortie)
+	Layer(int& neuronesEntree, int& neuronesSortie)
 	{
 		vector<vector<double>> weight(neuronesEntree);
 		for(int i = 0; i<neuronesEntree; i++)
@@ -51,7 +51,7 @@ class Layer
 		b.clear();
 	}
 	
-	vector<double> forwardPropagation(vector<double> input){
+	vector<double> &forwardPropagation(vector<double> const& input){
 		vector<double> output;
 		for (int n = 0; n < w.size(); n++){
 			// Calcul sum xi*wij
@@ -64,7 +64,7 @@ class Layer
 		return output;
 	}
 
-	vector<double> backwardPropagation(vector<double> dEY, vector<double> entree, double learningRate){
+	vector<double> &backwardPropagation(vector<double>& dEY, vector<double> const& entree, double const& learningRate){
 		int nombreSortie = dEY.size();
 		int nombreEntree = entree.size();
 		// Calcul de dE/dw
