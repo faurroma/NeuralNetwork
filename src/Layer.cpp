@@ -7,6 +7,7 @@
  */
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
 
 using namespace std;
 using std::vector;
@@ -16,15 +17,24 @@ class Layer
 	public:
 	
 	// Constructeur avec valeurs
-	Layer(vector<double> in, int nbSortie, vector<vector<double>> weight, vector<double> bias)
+	Layer(int neuronesEntree, int neuronesSortie)
 	{
-		entree = in;
-		nombreEntree = sizeof(in);
-		nombreSortie = nbSortie;
+		vector<vector<double>> weight(neuronesEntree);
+		for(int i = 0; i<neuronesEntree; i++)
+		{
+			weight[i].resize(neuronesSortie);
+		}
+		
+		for(int i = 0; i<neuronesEntree; i++)
+		{
+			for(int j = 0; j<neuronesSortie; j++)
+			{
+				weight[i][j] = rand() % 100;
+			}
+		}
+		
 		w = weight;
-		b = bias;
-		for ( int i = 0 ; i < nombreEntree; i++ )
-		   dEW[i].resize(nombreSortie);
+		vector<double> bias(neuronesSortie);
 		
 	}
 	
@@ -34,40 +44,52 @@ class Layer
 	// Destructeur
 	
 	~Layer(){
-		delete &nombreEntree;
-		delete &nombreSortie;
-		delete &entree;
-		delete &sortie;
-		delete &dEX;
-		delete &dEB;
-		delete &dEW;
-		delete &w;
-		delete &b;
+		for (int i = 0; i < w.size(); i++){
+			w[i].clear();
+		}
+		w.clear();
+		b.clear();
 	}
 	
-	void forwardPropagation(){
-		for (int j = 0; j < nombreSortie; j++){
+	vector<double> forwardPropagation(vector<double> input){
+		vector<double> output;
+		for (int n = 0; n < w.size(); n++){
 			// Calcul sum xi*wij
 			double s = 0;
-			for (int i = 0; i < nombreEntree; i++){
-				s += b[i] + w[i][j];
+			for (int i = 0; i < input.size(); i++){
+				s += w[n][i]*input[i];
 			}
-			sortie[j] = b[j] + s;
-		}		
+			output.push_back(b[n] + s);
+		}
+		return output;
 	}
-		
-	void backwardPropagation(vector<double> dEY){
+
+	vector<double> backwardPropagation(vector<double> dEY, vector<double> entree, double learningRate){
+		int nombreSortie = dEY.size();
+		int nombreEntree = entree.size();
 		// Calcul de dE/dw
+		vector<vector<double>> dEW(nombreEntree);
+		for(int i = 0; i < nombreEntree; i++)
+		{
+			dEW[i].resize(nombreSortie);
+		}	
 		for(int i = 0; i < nombreEntree; i++){
 			for (int j = 0; j < nombreSortie; j++){
 				dEW[i][j] = dEY[j]*entree[i];
 			}
 		}
-		// Calcul de dE/db
+		// Mise à jour de w
+		for (int i = 0; i < nombreEntree; i++){
+			for (int j = 0; j < nombreSortie; j++){
+				w[i][j] -= learningRate * dEW[i][j];
+			}
+		}
+		// dE/db = dE/dy
 		for (int j = 0; j < nombreSortie; j++){
-			dEB[j] = dEY[j];
+			b[j] -= learningRate * dEY[j];
 		}
 		// Calcul de dE/dx
+		vector<double> dEX(nombreEntree);
 		for (int i = 0; i < nombreEntree; i++){
 			double s = 0;
 			for (int j = 0; j < nombreSortie; j++){
@@ -75,17 +97,11 @@ class Layer
 			}
 			dEX[i] = s;
 		}
+		return dEX;
 	}
 	
 	private:
 
-		int nombreEntree;
-		vector<double> entree;
-		int nombreSortie;
-		vector<double> sortie = vector<double>(nombreSortie, 0);
-		vector<double> dEB = vector<double>(nombreSortie, 0);
-		vector<double> dEX = vector<double>(nombreEntree, 0);
-		vector<vector<double>> dEW;
 		vector<vector<double>> w;
 		vector<double> b;
 		
