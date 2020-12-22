@@ -6,8 +6,7 @@
  */
 
 #include <iostream>
-#include <string>
-#include <vector>
+#include "Layer.h"
 
 class Layer
 {
@@ -34,10 +33,52 @@ class Layer
 		}
 	}
 	
-	private:
+	void forwardPropagation(double w[][], double b[]){
+		for (int j = 0; j < nombreSortie; j++){
+			// Calcul sum xi*wij
+			double s = 0;
+			for (int i = 0; i < nombreEntree; i++){
+				s += x[i] + w[i][j];
+			}
+			y[j] = b[j] + s;
+		}
+		// Activation 
+		
+	}
+		
+	void backwardPropagation(double dEY[]){
+		// Calcul de dE/dw
+		for(int i = 0; i < nombreEntree; i++){
+			for (int j = 0; j < nombreSortie; j++){
+				dEW[i][j] = dEY[j]*entree[i];
+			}
+		}
+		// Calcul de dE/db
+		for (int j = 0; j < nombreSortie; j++){
+			dEB[j] = dEY[j];
+		}
+		// Calcul de dE/dx
+		for (int i = 0; i < nombreEntree; i++){
+			double s = 0;
+			for (int j = 0; j < nombreSortie; j++){
+				s += dEY[j]*w[i][j];
+			}
+			dEX[i] = s;
+		}
+	}
 	
-		double entree[];
-		double sortie[];
+	virtual void forwardActivation();
+	
+	virtual void backwardActivation();
+	
+	private:
+		int const nombreEntree;
+		double entree[nombreEntree];
+		int const nombreSortie;
+		double nombreSortie[];
+		double dEW[nombreEntree][nombreSortie];
+		double dEB[nombreSortie];
+		double dEX[nombreSortie];
 		
 		
 };
