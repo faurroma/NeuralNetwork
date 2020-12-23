@@ -1,12 +1,5 @@
-/*
- * Model.h
- *
- *  Created on: 22 déc. 2020
- *      Author: faureromain
- */
-
-#ifndef INCLUDE_MODEL_H_
-#define INCLUDE_MODEL_H_
+#ifndef INCLUDE_MODEL_HPP_
+#define INCLUDE_MODEL_HPP_
 
 #include <string>
 
@@ -28,4 +21,4 @@ class Model {
 };
 
 
-#endif /* INCLUDE_MODEL_H_ */
+#endif /* INCLUDE_MODEL_HPP_ */
