@@ -19,7 +19,10 @@ class Layer
 	vector<double> forwardPropagation(vector<double>& input);
 
 	vector<double> backwardPropagation(vector<double>& dEY, vector<double> const& entree, double const& learningRate);
-	
+
+	int getInputSize();
+
+	int getOutputSize();
 	private:
 
 		vector<vector<double>> w;

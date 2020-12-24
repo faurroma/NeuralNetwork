@@ -97,3 +97,10 @@ using std::vector;
 		return dEX;
 	}
 
+	int Layer::getInputSize(){
+		return w[0].size();
+	}
+
+	int Layer::getOutputSize(){
+		return w.size();
+	}
