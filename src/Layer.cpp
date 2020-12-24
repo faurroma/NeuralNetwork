@@ -8,17 +8,12 @@
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
+#include "Layer.hpp"
 
 using namespace std;
 using std::vector;
 
-class Layer
-{
-	public:
-	/* Constructeur avec valeurs
-	 *
-	 */
-	Layer(int neuronesEntree, int neuronesSortie)
+	Layer::Layer(int neuronesEntree, int neuronesSortie)
 	{
 		vector<vector<double>> weight(neuronesSortie);
 		for(int i = 0; i<neuronesSortie; i++)
@@ -41,11 +36,11 @@ class Layer
 	}
 	
 	// Constructeur par défaut
-	Layer(){}
+	Layer::Layer(){}
 	
 	// Destructeur
 	
-	~Layer(){
+	Layer::~Layer(){
 		for (int i = 0; i < w.size(); i++){
 			w[i].clear();
 		}
@@ -53,7 +48,7 @@ class Layer
 		b.clear();
 	}
 	
-	vector<double> forwardPropagation(vector<double>& input){
+	vector<double> Layer::forwardPropagation(vector<double>& input){
 		vector<double> output;
 		for (int n = 0; n < w.size(); n++){
 			// Calcul sum xi*wij
@@ -66,7 +61,7 @@ class Layer
 		return output;
 	}
 
-	vector<double> backwardPropagation(vector<double>& dEY, vector<double> const& entree, double const& learningRate){
+	vector<double> Layer::backwardPropagation(vector<double>& dEY, vector<double> const& entree, double const& learningRate){
 		int nombreSortie = dEY.size();
 		int nombreEntree = entree.size();
 		// Calcul de dE/dw
@@ -101,10 +96,4 @@ class Layer
 		}
 		return dEX;
 	}
-	
-	private:
 
-		vector<vector<double>> w;
-		vector<double> b;
-		
-};

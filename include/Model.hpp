@@ -2,7 +2,6 @@
 #define INCLUDE_MODEL_HPP_
 
 #include <string>
-
 class Model {
 	public:
 		Model(std::string lossFct, double learningR);
@@ -14,7 +13,7 @@ class Model {
 		std::string lossFunction;
 		double learningRate;
 
-		void activate(std::vector<double> values, std::string function);
+		void activate(std::vector<double> values, std::string& function);
 		void backwardPropagation(double dEY[]);
 		void fit(std::vector<std::vector<double>> trainingInput,
 				 std::vector<std::vector<double>> trainingOutput);

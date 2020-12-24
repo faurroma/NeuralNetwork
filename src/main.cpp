@@ -6,8 +6,8 @@
  */
 #include <iostream>
 #include <string>
-#include "Layer.h"
-#include "Model.h"
+#include "Layer.hpp"
+#include "Model.hpp"
 
 
 
