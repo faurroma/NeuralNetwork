@@ -54,8 +54,14 @@ void Model::activate(vector<double> values, string& function){
 		cout << "Wrong activation function name" << endl;
 	}
 }
-void Model::backwardPropagation(double dEY[]){
-// TODO
+void Model::backwardPropagation(vector<double>& dEY, vector<double>& entree){
+	vector<double> dEX;
+	for (int i=0; i<dEY.size(); i++) {
+		        dEX.push_back(dEY[i]);
+		}
+	for (int i = layers.size() - 1; i>= 0; i--){
+		dEX = layers[i].backwardPropagation(dEX, entree, learningRate);
+	}
 }
 void Model::fit(vector<vector<double>> trainingInput,
 	 vector<vector<double>> trainingOutput){

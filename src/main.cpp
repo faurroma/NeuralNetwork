@@ -17,14 +17,25 @@ int main(){
 	testMod.add(Layer(5, 6), "identity");
 	testMod.add(Layer(6,4), "identity");
 	vector<double> oui;
-	oui.push_back(100);
-	oui.push_back(100);
-	oui.push_back(100);
-	oui.push_back(100);
-	oui.push_back(100);
-	vector<double> result = testMod.getOutputFor(oui);
-	for (int i = 0; i<result.size(); i++){
+	oui.push_back(0.5);
+	oui.push_back(0);
+	oui.push_back(0.4);
+	oui.push_back(0.4);
+	vector<double> non;
+	non.push_back(4);
+	non.push_back(3);
+	non.push_back(2);
+	non.push_back(3);
+	vector<double> result = testMod.getOutputFor(non);
+	for (int i = 0; i<result.size(); i++) {
 		cout << result[i] << " ";
+	}
+	cout << endl;
+	testMod.backwardPropagation(oui, non);
+	cout << "after backwardPropagation" << endl;
+	result = testMod.getOutputFor(non);
+	for (int j = 0; j<result.size(); j++) {
+		cout << result[j] << " ";
 	}
 	cout << endl;
 	cout << "Test end !" << endl;
