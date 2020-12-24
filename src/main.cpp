@@ -12,11 +12,23 @@
 
 
 int main(){
-	cout << "Test" << endl;
+	cout << "Test beginning" << endl;
 	Model testMod("test", 0.001);
-	testMod.add(Layer(5, 6), "sigmoid");
-	testMod.add(Layer(6,3), "identity");
-	cout << "Sucess !" << endl;
+	testMod.add(Layer(5, 6), "identity");
+	testMod.add(Layer(6,4), "identity");
+	vector<double> oui;
+	oui.push_back(100);
+	oui.push_back(100);
+	oui.push_back(100);
+	oui.push_back(100);
+	oui.push_back(100);
+	vector<double> result = testMod.getOutputFor(oui);
+	for (int i = 0; i<result.size(); i++){
+		cout << result[i] << " ";
+	}
+	cout << endl;
+	cout << "Test end !" << endl;
+	return 0;
 
 }
 

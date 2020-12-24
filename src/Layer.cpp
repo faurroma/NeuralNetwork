@@ -25,7 +25,7 @@ using std::vector;
 		{
 			for(int j = 0; j<neuronesEntree; j++)
 			{
-				weight[i][j] = rand()/RAND_MAX;
+				weight[i][j] = (double)rand()/RAND_MAX;
 			}
 		}
 		
