@@ -61,6 +61,7 @@ void Model::activatePrime(vector<double> values, string& function){
 	else if (function == "step")       stepPrime(values);
 	else {
 		cout << "Wrong activation function name" << endl;
+		exit(0);
 	}
 }
 
@@ -81,13 +82,19 @@ void Model::backwardPropagation(vector<double>& dEY){
 }
 
 double Model::loss(vector<double> expected, vector<double> prediction){
-	return 1;
-
+	if (lossFunction == "crossEntropy")         return crossEntropy(expected, prediction);
+	else {
+		cout << "Wrong loss function name" << endl;
+		exit(0);
+	}
 }
 
 vector<double> Model::lossPrime(vector<double> expected, vector<double> prediction){
-	vector<double> todo;
-	return todo;
+	if (lossFunction == "crossEntropy")         return crossEntropyPrime(expected, prediction);
+	else {
+		cout << "Wrong loss function name" << endl;
+		exit(0);
+	}
 }
 
 void Model::fit(vector<vector<double>> trainingInput,

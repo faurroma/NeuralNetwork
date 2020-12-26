@@ -13,31 +13,20 @@
 
 int main(){
 	cout << "Test beginning" << endl;
-	Model testMod("test", 0.001);
-	testMod.add(Layer(5, 6), "identity");
-	testMod.add(Layer(6,4), "identity");
-	vector<double> oui;
-	oui.push_back(0.5);
-	oui.push_back(0);
-	oui.push_back(0.4);
-	oui.push_back(0.4);
-	vector<double> non;
-	non.push_back(4);
-	non.push_back(3);
-	non.push_back(2);
-	non.push_back(3);
-	vector<double> result = testMod.getOutputFor(non);
-	for (int i = 0; i<result.size(); i++) {
-		cout << result[i] << " ";
-	}
-	cout << endl;
-	testMod.backwardPropagation(non);
-	cout << "after backwardPropagation" << endl;
-	result = testMod.getOutputFor(non);
-	for (int j = 0; j<result.size(); j++) {
-		cout << result[j] << " ";
-	}
-	cout << endl;
+	Model testMod("crossEntropy", 0.001);
+	testMod.add(Layer(4, 16), "identity");
+	testMod.add(Layer(16, 1), "step");
+	vector<double> i1 = {0, 0};
+	vector<double> i2 = {0, 1};
+	vector<double> i3 = {1, 0};
+	vector<double> i4 = {1, 1};
+	vector<double> o1 = {0};
+	vector<double> o2 = {0};
+	vector<double> o3 = {0};
+	vector<double> o4 = {1};
+	vector<vector<double>> trainingInput = {i1, i2, i3, i4};
+	vector<vector<double>> trainingOutput = {o1, o2, o3, o4};
+	testMod.fit(trainingInput, trainingOutput, 100);
 	cout << "Test end !" << endl;
 	return 0;
 

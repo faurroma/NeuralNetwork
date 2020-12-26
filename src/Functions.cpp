@@ -45,12 +45,20 @@ void stepPrime(vector<double>& values){
 	
 }
 
-double crossEntropy(vector<double> expected, vector<double> score){
+double crossEntropy(vector<double> expected, vector<double> prediction){
 	double cost = 0;
 	for (int i = 0; i < expected.size(); i++) {
-		cost += -expected[i] * log(score[i]);
+		cost += -expected[i] * log10(prediction[i]);
 	}
 	return cost;
+}
+
+vector<double> crossEntropyPrime(vector<double> expected, vector<double> prediction){
+	vector<double> result(expected.size());
+	for(int i = 0; i < expected.size(); i++){
+		result[i] = -1/log(10) * expected[i]/prediction[i];
+	}
+	return result;
 }
 
 
