@@ -6,6 +6,7 @@
  */
 #include <math.h>
 #include <vector>
+#include <iostream>
 #include <numeric>
 
 using namespace std;
@@ -44,19 +45,31 @@ void step(std::vector<double>& values){
 void stepPrime(vector<double>& values){
 	
 }
+double binaryCrossEntropy(vector<double>& expected, vector<double>& prediction){
+	double cost  = - expected[0] * log(prediction[0] + 0.00000000000001)
+				   - expected[1] * log(1 - prediction[0] + 0.00000000000001);
+	return cost;
+}
 
-double crossEntropy(vector<double> expected, vector<double> prediction){
+vector<double> binaryCrossEntropyPrime(vector<double>& expected, vector<double>& prediction){
+	vector<double> result {-expected[0]/(prediction[0]+0.000000000000001),
+				           -expected[0]/(1- prediction[0]+0.000000000000001)};
+	return result;
+}
+
+double crossEntropy(vector<double>& expected, vector<double>& prediction){
 	double cost = 0;
 	for (int i = 0; i < expected.size(); i++) {
-		cost += -expected[i] * log10(prediction[i]);
+		cost += -expected[i] * log(prediction[i] + 0.00000000000001);
 	}
 	return cost;
 }
 
-vector<double> crossEntropyPrime(vector<double> expected, vector<double> prediction){
+
+vector<double> crossEntropyPrime(vector<double>& expected, vector<double>& prediction){
 	vector<double> result(expected.size());
 	for(int i = 0; i < expected.size(); i++){
-		result[i] = -1/log(10) * expected[i]/prediction[i];
+		result[i] = - expected[i]/(prediction[i]+0.000000000000001);
 	}
 	return result;
 }

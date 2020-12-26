@@ -16,11 +16,11 @@ class Model {
 		std::string lossFunction;
 		double learningRate;
 
-		void activate(std::vector<double> values, std::string& function);
-		void activatePrime(vector<double> values, std::string& function);
+		void activate(std::vector<double>& values, std::string& function);
+		void activatePrime(vector<double>& values, std::string& function);
 
-		double loss(vector<double> expected, vector<double> prediction);
-		vector<double> lossPrime(vector<double> expected, vector<double> prediction);
+		double loss(vector<double>& expected, vector<double> &prediction);
+		vector<double> lossPrime(vector<double>& expected, vector<double>& prediction);
 
 
 };

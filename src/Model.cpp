@@ -46,7 +46,7 @@ vector<double> Model::getOutputFor(vector<double> input){
 	return output;
 }
 
-void Model::activate(vector<double> values, string& function){
+void Model::activate(vector<double>& values, string& function){
 	if (function == "sigmoid")         sigmoid(values);
 	else if (function == "identity")   identity(values);
 	else if (function == "step")       step(values);
@@ -55,7 +55,7 @@ void Model::activate(vector<double> values, string& function){
 	}
 }
 
-void Model::activatePrime(vector<double> values, string& function){
+void Model::activatePrime(vector<double>& values, string& function){
 	if (function == "sigmoid")         sigmoidPrime(values);
 	else if (function == "identity")   identityPrime(values);
 	else if (function == "step")       stepPrime(values);
@@ -81,16 +81,18 @@ void Model::backwardPropagation(vector<double>& dEY){
 	}
 }
 
-double Model::loss(vector<double> expected, vector<double> prediction){
+double Model::loss(vector<double>& expected, vector<double>& prediction){
 	if (lossFunction == "crossEntropy")         return crossEntropy(expected, prediction);
+	else if (lossFunction == "binaryCrossEntropy")   return binaryCrossEntropy(expected, prediction);
 	else {
 		cout << "Wrong loss function name" << endl;
 		exit(0);
 	}
 }
 
-vector<double> Model::lossPrime(vector<double> expected, vector<double> prediction){
-	if (lossFunction == "crossEntropy")         return crossEntropyPrime(expected, prediction);
+vector<double> Model::lossPrime(vector<double>& expected, vector<double>& prediction){
+	if (lossFunction == "crossEntropy")              return crossEntropyPrime(expected, prediction);
+	else if (lossFunction == "binaryCrossEntropy")   return binaryCrossEntropyPrime(expected, prediction);
 	else {
 		cout << "Wrong loss function name" << endl;
 		exit(0);
@@ -110,6 +112,6 @@ void Model::fit(vector<vector<double>> trainingInput,
 			vector<double> dEY = lossPrime(trainingOutput[d], output);
 			backwardPropagation(dEY);
 		}
-		cout << "Epoch " << e << " with error : " << err << " (" << lossFunction << ")" << endl;
+		cout << "Epoch " << e+1 << "/" << epochs <<" with error : " << err << " (" << lossFunction << ")" << endl;
 	}
 }

@@ -17,9 +17,13 @@ void stepPrime(std::vector<double>& values);
 
 
 // LOSS FUNCTIONS AND THEIR DERIVATIVE
-double crossEntropy(vector<double> expected, vector<double> prediction);
+double crossEntropy(vector<double> &expected, vector<double>& prediction);
 
-vector<double> crossEntropyPrime(vector<double> expected, vector<double> prediction);
+vector<double> crossEntropyPrime(vector<double>& expected, vector<double>& prediction);
+
+double binaryCrossEntropy(vector<double>& expected, vector<double>& prediction);
+
+vector<double> binaryCrossEntropyPrime(vector<double>& expected, vector<double>& prediction);
 
 // USEFUL FUNCTIONS
 
