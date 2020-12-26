@@ -105,3 +105,11 @@ using std::vector;
 	int Layer::getOutputSize(){
 		return w.size();
 	}
+
+	vector<double> Layer::getInput(){
+		return input;
+	}
+
+	vector<double> Layer::getOutput(){
+		return output;
+	}

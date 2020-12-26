@@ -53,31 +53,6 @@ double crossEntropy(vector<double> expected, vector<double> score){
 	return cost;
 }
 
-vector<vector<double>> dotMatrix(const vector<vector<double>> & A, const vector<vector<double>> & B)
-{
-    vector<vector<double>> result(A.size());
-	for (int i = 0; i < A.size(); i++) {
-		result[0].resize(B[0].size(), 0);
-		for (int j = 0; j < B[0].size(); j++){
-			for (int k = 0; k < B.size() ; k++) {
-				result[i][j]+=A[i][k]*B[k][j];  
-			}
-		}
-	}
-    return result;
-}
-vector<vector<double>> sumMatrix(const vector<vector<double>> & A, const vector<vector<double>> & B)
-{
-    vector<vector<double>> result(A.size());
-	for (int i = 0; i < A.size(); i++) {
-		result[0].resize(B[0].size(), 0);
-		for (int j = 0; j < B[0].size(); j++){
-			result[i][j] = A[i][j] + B[i][j];  
-		}
-	}
-    return result;
-}
-
 
 
 

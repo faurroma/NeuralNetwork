@@ -23,6 +23,11 @@ class Layer
 	int getInputSize();
 
 	int getOutputSize();
+
+	vector<double> getInput();
+
+	vector<double> getOutput();
+	
 	private:
 
 		vector<vector<double>> w;

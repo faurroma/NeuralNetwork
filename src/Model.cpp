@@ -42,9 +42,6 @@ vector<double> Model::getOutputFor(vector<double> input){
 	for(int i = 0; i < layers.size(); i++){
 		output = layers[i].forwardPropagation(output);
 		activate(output, activationFunctions[i]);
-		for (int j = 0; j < output.size(); j++){
-			valeurs[j+1] = output;
-		}
 	}
 	return output;
 }
@@ -73,17 +70,13 @@ void Model::backwardPropagation(vector<double>& dEY){
 	for (int i=0; i<dEY.size(); i++) {
 		dEX.push_back(dEY[i]);
 	}
-	vector<vector<double>> cpEntree;
-	for (int i=0; i<valeurs.size()-1; i++) {
-		for (int j = 0; j < valeurs[i].size(); j++){
-			cpEntree[i][j].push_back(valeurs[i][j]);
-		}
-	}
 	for (int i = layers.size() - 1; i>= 0; i--){
-		activatePrime(cpEntree[i], activationFunctions[i]);
-		for (int j = 0; j < dEX.size(); j++){
-			dEX[j] = layers[i].backwardPropagation(dEX, entree, learningRate)[j] * cpEntree[i][j];
+		vector<double> input(layers[i].getInput()); // copy of input to modify it without risk
+		activatePrime(input, activationFunctions[i]);
+		for (int k = 0; k < dEX.size(); k++) {
+			dEX[k] *= input[k];
 		}
+		dEX = layers[i].backwardPropagation(dEX, learningRate);
 	}
 }
 
