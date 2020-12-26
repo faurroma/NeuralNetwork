@@ -14,10 +14,11 @@
 
 using namespace std;
 
-Model::Model(string lossFct, double learningR) {
+Model::Model(string lossFct, double learningR, vector<double> entry) {
 	cout << "New sequential network" << endl;
 	learningRate = learningR;
 	lossFunction = lossFct;
+	valeurs.push_back(entry);
 }
 
 void Model::add(Layer lay, string activation) {
@@ -27,6 +28,9 @@ void Model::add(Layer lay, string activation) {
 	}
 	layers.push_back(lay);
 	activationFunctions.push_back(activation);
+	for (int i = 0; i < lay.size(); i++){
+		activationFunctions.push_back(vector<double>(lay.w.size()));
+	}
 }
 
 
@@ -42,6 +46,9 @@ vector<double> Model::getOutputFor(vector<double> input){
 	for(int i = 0; i < layers.size(); i++){
 		output = layers[i].forwardPropagation(output);
 		activate(output, activationFunctions[i]);
+		for (int j = 0; j < output.size(); j++){
+			valeurs[j+1] = output;
+		}
 	}
 	return output;
 }
@@ -54,19 +61,37 @@ void Model::activate(vector<double> values, string& function){
 		cout << "Wrong activation function name" << endl;
 	}
 }
-void Model::backwardPropagation(vector<double>& dEY, vector<double>& entree){
-	vector<double> dEX;
-	for (int i=0; i<dEY.size(); i++) {
-		        dEX.push_back(dEY[i]);
-		}
-	for (int i = layers.size() - 1; i>= 0; i--){
-		dEX = layers[i].backwardPropagation(dEX, entree, learningRate);
+
+void Model::activatePrime(vector<double> values, string& function){
+	if (function == "sigmoid")         sigmoidPrime(values);
+	else if (function == "identity")   identityPrime(values);
+	else if (function == "step")       stepPrime(values);
+	else {
+		cout << "Wrong activation function name" << endl;
 	}
 }
+
+void Model::backwardPropagation(vector<double>& dEY){
+	vector<double> dEX;
+	// Copie de dEY dans dEX
+	for (int i=0; i<dEY.size(); i++) {
+		dEX.push_back(dEY[i]);
+	}
+	vector<double> cpEntree;
+	for (int i=0; i<valeurs.size()-1; i++) {
+		for (int j = 0; j < valeurs[i].size(); j++){
+			cpEntree[i][j].push_back(valeurs[i][j]);
+		}
+	}
+	for (int i = layers.size() - 1; i>= 0; i--){
+		activatePrime(cpEntree[i], activationFunctions[i]);
+		for (int j = 0; j < dEX.size(); j++){
+			dEX[j] = layers[i].backwardPropagation(dEX, entree, learningRate)[j] * cpEntree[i][j];
+		}
+	}
+}
+
 void Model::fit(vector<vector<double>> trainingInput,
 	 vector<vector<double>> trainingOutput){
 	// TODO
 }
-
-
-
