@@ -44,4 +44,11 @@ void step_prime(vector<double>& values){
 	
 }
 
+double crossEntropy(vector<double> expected, vector<double> score){
+	double cost = 0;
+	for (int i = 0; i < expected.size(); i++) {
+		cost += -expected[i] * log(score[i]);
+	}
+	return cost;
+}
 
