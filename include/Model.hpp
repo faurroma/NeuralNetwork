@@ -9,7 +9,7 @@ class Model {
 		std::vector<double> getOutputFor(std::vector<double> input);
 		void backwardPropagation(std::vector<double>& dEY);
 		void fit(std::vector<std::vector<double>> trainingInput,
-				 std::vector<double> trainingOutput, int epochs);
+				 std::vector<std::vector<double>> trainingOutput, int epochs);
 	private:
 		std::vector<Layer> layers;
 		std::vector<std::string> activationFunctions;
@@ -20,7 +20,7 @@ class Model {
 		void activatePrime(vector<double> values, std::string& function);
 
 		double loss(vector<double> expected, vector<double> prediction);
-		double lossPrime(vector<double> expected, vector<double> prediction);
+		vector<double> lossPrime(vector<double> expected, vector<double> prediction);
 
 
 };
