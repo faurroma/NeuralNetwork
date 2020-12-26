@@ -7,4 +7,6 @@ void identity(std::vector<double>& values);
 
 void step(std::vector<double>& values);
 
+double crossEntropy(vector<double> expected, vector<double> score);
+
 #endif /* INCLUDE_FUNCTIONS_HPP_ */
