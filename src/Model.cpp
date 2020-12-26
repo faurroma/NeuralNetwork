@@ -14,11 +14,10 @@
 
 using namespace std;
 
-Model::Model(string lossFct, double learningR, vector<double> entry) {
+Model::Model(string lossFct, double learningR) {
 	cout << "New sequential network" << endl;
 	learningRate = learningR;
 	lossFunction = lossFct;
-	valeurs.push_back(entry);
 }
 
 void Model::add(Layer lay, string activation) {
