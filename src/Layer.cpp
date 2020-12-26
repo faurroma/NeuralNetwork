@@ -15,15 +15,15 @@ using std::vector;
 
 	Layer::Layer(int neuronesEntree, int neuronesSortie)
 	{
-		vector<vector<double>> weight(neuronesSortie);
-		for(int i = 0; i<neuronesSortie; i++)
+		vector<vector<double>> weight(neuronesEntree);
+		for(int i = 0; i<neuronesEntree; i++)
 		{
-			weight[i].resize(neuronesEntree);
+			weight[i].resize(neuronesSortie);
 		}
 		
-		for(int i = 0; i<neuronesSortie; i++)
+		for(int i = 0; i<neuronesEntree; i++)
 		{
-			for(int j = 0; j<neuronesEntree; j++)
+			for(int j = 0; j<neuronesSortie; j++)
 			{
 				weight[i][j] = (double)rand()/RAND_MAX;
 			}
@@ -48,29 +48,32 @@ using std::vector;
 		b.clear();
 	}
 	
-	vector<double> Layer::forwardPropagation(vector<double>& input){
-		vector<double> output;
+	vector<double> Layer::forwardPropagation(vector<double> in){
+		input = in;
+		vector<double> out;
 		for (int n = 0; n < w.size(); n++){
 			// Calcul sum xi*wij
 			double s = 0;
 			for (int i = 0; i < input.size(); i++){
-				s += w[n][i]*input[i];
+				s += w[i][n]*input[i];
 			}
-			output.push_back(b[n] + s);
+			out.push_back(b[n] + s);
 		}
-		return output;
+		output = out;
+		return out;
 	}
 
-	vector<double> Layer::backwardPropagation(vector<double>& dEY, vector<double> const& entree, double const& learningRate){
-		int nombreSortie = dEY.size();
-		int nombreEntree = entree.size();
+	vector<double> Layer::backwardPropagation(vector<double>& dEY, double const& learningRate){
+		int nombreSortie = w[0].size();
+		int nombreEntree = w.size();
 		// Calcul de dE/dw
 		vector<vector<double>> dEW(nombreEntree);
 		for(int i = 0; i < nombreEntree; i++)
-		{
-			for(int i = 0; i < nombreEntree; i++){
-				for (int j = 0; j < nombreSortie; j++){
-					dEW[i].push_back(dEY[j]*entree[i]);
+		{	
+			dEW[i].resize(nombreSortie, 0);
+			for(int j = 0; j < nombreSortie; i++){
+				for (int k = 0; j < nombreSortie; j++){
+					dEW[i][j] += dEY[j]*input[i];
 				}
 			}
 		}	

@@ -6,6 +6,7 @@
  */
 #include <math.h>
 #include <vector>
+#include <numeric>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ void sigmoid(vector<double>& values){
 		values[i] = exp(values[i])/(exp(values[i]) + 1);
 	}
 }
-void sigmoid_prime(vector<double>& values){
+void sigmoidPrime(vector<double>& values){
 	for(int i = 0; i < values.size(); i++){
 		values[i] = exp(-values[i])/(exp(-values[i]) + 1)/(exp(-values[i]) + 1);
 	}
@@ -23,7 +24,7 @@ void sigmoid_prime(vector<double>& values){
 void identity(vector<double>& values){
 }
 
-void identity_prime(vector<double>& values){
+void identityPrime(vector<double>& values){
 	for(int i = 0; i < values.size(); i++){
 			values[i] = 1;
 		}
@@ -40,7 +41,7 @@ void step(std::vector<double>& values){
 	}
 }
 
-void step_prime(vector<double>& values){
+void stepPrime(vector<double>& values){
 	
 }
 
@@ -51,4 +52,32 @@ double crossEntropy(vector<double> expected, vector<double> score){
 	}
 	return cost;
 }
+
+vector<vector<double>> dotMatrix(const vector<vector<double>> & A, const vector<vector<double>> & B)
+{
+    vector<vector<double>> result(A.size());
+	for (int i = 0; i < A.size(); i++) {
+		result[0].resize(B[0].size(), 0);
+		for (int j = 0; j < B[0].size(); j++){
+			for (int k = 0; k < B.size() ; k++) {
+				result[i][j]+=A[i][k]*B[k][j];  
+			}
+		}
+	}
+    return result;
+}
+vector<vector<double>> sumMatrix(const vector<vector<double>> & A, const vector<vector<double>> & B)
+{
+    vector<vector<double>> result(A.size());
+	for (int i = 0; i < A.size(); i++) {
+		result[0].resize(B[0].size(), 0);
+		for (int j = 0; j < B[0].size(); j++){
+			result[i][j] = A[i][j] + B[i][j];  
+		}
+	}
+    return result;
+}
+
+
+
 

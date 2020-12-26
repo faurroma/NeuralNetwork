@@ -16,9 +16,9 @@ class Layer
 	Layer(int neuronesEntree, int neuronesSortie);
 	Layer();
 	~Layer();
-	vector<double> forwardPropagation(vector<double>& input);
+	vector<double> forwardPropagation(vector<double> input);
 
-	vector<double> backwardPropagation(vector<double>& dEY, vector<double> const& entree, double const& learningRate);
+	vector<double> backwardPropagation(vector<double>& dEY, double const& learningRate);
 
 	int getInputSize();
 
@@ -27,6 +27,8 @@ class Layer
 
 		vector<vector<double>> w;
 		vector<double> b;
+		vector<double> input;
+		vector<double> output;
 
 };
 
