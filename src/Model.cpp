@@ -80,7 +80,30 @@ void Model::backwardPropagation(vector<double>& dEY){
 	}
 }
 
+double Model::loss(vector<double> expected, vector<double> prediction){
+	return 1;
+
+}
+
+double Model::lossPrime(vector<double> expected, vector<double> prediction){
+	return 1;
+}
+
 void Model::fit(vector<vector<double>> trainingInput,
-	 vector<vector<double>> trainingOutput){
-	// TODO
+	 vector<double> trainingOutput, int epochs){
+	for (int e = 0; e < epochs; e++) {
+		double err = 0;
+		for(int d = 0; d < trainingInput.size(); d++){
+			// Calcul de la prédiction
+			vector<double> output = getOutputFor(trainingInput[d]);
+			vector<double> current_err = loss(trainingOutput[d], output);
+			// Calcul de l'erreur pour chaque epoch, uniquement pour le visuel
+			for(vector<double>::iterator it = vector.begin(); it != vector.end(); ++it){
+			    err += *it;
+			}
+			// BackPropagation
+			backwardPropagation(current_err);
+		}
+		cout << "Epoch " << e << " with error : " << err << " (" << lossFunction << ")" << endl;
+	}
 }
