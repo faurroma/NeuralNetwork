@@ -31,7 +31,7 @@ int main(){
 		cout << result[i] << " ";
 	}
 	cout << endl;
-	testMod.backwardPropagation(oui, non);
+	testMod.backwardPropagation(non);
 	cout << "after backwardPropagation" << endl;
 	result = testMod.getOutputFor(non);
 	for (int j = 0; j<result.size(); j++) {

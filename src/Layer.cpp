@@ -70,10 +70,10 @@ using std::vector;
 		vector<vector<double>> dEW(nombreEntree);
 		for(int i = 0; i < nombreEntree; i++)
 		{	
-			dEW[i].resize(nombreSortie, 0);
+			dEW[i].resize(nombreSortie);
 			for(int j = 0; j < nombreSortie; i++){
 				for (int k = 0; j < nombreSortie; j++){
-					dEW[i][j] += dEY[j]*input[i];
+					dEW[i][j] = dEY[j]*input[i];
 				}
 			}
 		}	
@@ -89,13 +89,11 @@ using std::vector;
 			b[j] -= learningRate * dEY[j];
 		}
 		// Calcul de dE/dx
-		vector<double> dEX(nombreEntree);
+		vector<double> dEX(nombreEntree, 0);
 		for (int i = 0; i < nombreEntree; i++){
-			double s = 0;
 			for (int j = 0; j < nombreSortie; j++){
-				s += dEY[j]*w[i][j];
+				dEX[i] += dEY[j]*w[i][j];
 			}
-			dEX[i] = s;
 		}
 		return dEX;
 	}
