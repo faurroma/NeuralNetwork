@@ -11,6 +11,10 @@ void identity(std::vector<double>& values);
 
 void identityPrime(std::vector<double>& values);
 
+void tanH(vector<double>& values);
+
+void tanHPrime(vector<double>& values);
+
 void step(std::vector<double>& values);
 
 void stepPrime(std::vector<double>& values);
@@ -24,6 +28,10 @@ vector<double> crossEntropyPrime(vector<double>& expected, vector<double>& predi
 double binaryCrossEntropy(vector<double>& expected, vector<double>& prediction);
 
 vector<double> binaryCrossEntropyPrime(vector<double>& expected, vector<double>& prediction);
+
+double mse(vector<double>& expected, vector<double>& prediction);
+
+vector<double> msePrime(vector<double>& expected, vector<double>& prediction);
 
 // USEFUL FUNCTIONS
 

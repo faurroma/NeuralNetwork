@@ -50,6 +50,7 @@ void Model::activate(vector<double>& values, string& function){
 	if (function == "sigmoid")         sigmoid(values);
 	else if (function == "identity")   identity(values);
 	else if (function == "step")       step(values);
+	else if (function == "tanh")       tanH(values);
 	else {
 		cout << "Wrong activation function name" << endl;
 	}
@@ -59,6 +60,7 @@ void Model::activatePrime(vector<double>& values, string& function){
 	if (function == "sigmoid")         sigmoidPrime(values);
 	else if (function == "identity")   identityPrime(values);
 	else if (function == "step")       stepPrime(values);
+	else if (function == "tanh")       tanHPrime(values);
 	else {
 		cout << "Wrong activation function name" << endl;
 		exit(0);
@@ -84,6 +86,7 @@ void Model::backwardPropagation(vector<double>& dEY){
 double Model::loss(vector<double>& expected, vector<double>& prediction){
 	if (lossFunction == "crossEntropy")         return crossEntropy(expected, prediction);
 	else if (lossFunction == "binaryCrossEntropy")   return binaryCrossEntropy(expected, prediction);
+	else if (lossFunction == "mse")       return mse(expected, prediction);
 	else {
 		cout << "Wrong loss function name" << endl;
 		exit(0);
@@ -93,6 +96,7 @@ double Model::loss(vector<double>& expected, vector<double>& prediction){
 vector<double> Model::lossPrime(vector<double>& expected, vector<double>& prediction){
 	if (lossFunction == "crossEntropy")              return crossEntropyPrime(expected, prediction);
 	else if (lossFunction == "binaryCrossEntropy")   return binaryCrossEntropyPrime(expected, prediction);
+	else if (lossFunction == "mse")                  return msePrime(expected, prediction);
 	else {
 		cout << "Wrong loss function name" << endl;
 		exit(0);
@@ -110,6 +114,8 @@ void Model::fit(vector<vector<double>> trainingInput,
 			err += loss(trainingOutput[d], output);
 			// BackPropagation
 			vector<double> dEY = lossPrime(trainingOutput[d], output);
+			for (int i = 0; i < dEY.size(); i++) cout << dEY[i] << " ";
+			cout << endl;
 			backwardPropagation(dEY);
 		}
 		cout << "Epoch " << e+1 << "/" << epochs <<" with error : " << err << " (" << lossFunction << ")" << endl;
