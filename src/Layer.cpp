@@ -69,14 +69,12 @@ using std::vector;
 		// Calcul de dE/dw
 		vector<vector<double>> dEW(nombreEntree);
 		for(int i = 0; i < nombreEntree; i++)
-		{	
+		{
 			dEW[i].resize(nombreSortie);
-			for(int j = 0; j < nombreSortie; i++){
-				for (int k = 0; j < nombreSortie; j++){
-					dEW[i][j] = dEY[j]*input[i];
-				}
+			for(int j = 0; j < nombreSortie; j++){
+				dEW[i][j] = dEY[j]*input[i];
 			}
-		}	
+		}
 
 		// Mise à jour de w
 		for (int i = 0; i < nombreEntree; i++){
