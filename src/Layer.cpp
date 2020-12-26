@@ -99,11 +99,11 @@ using std::vector;
 	}
 
 	int Layer::getInputSize(){
-		return w[0].size();
+		return w.size();
 	}
 
 	int Layer::getOutputSize(){
-		return w.size();
+		return w[0].size();
 	}
 
 	vector<double> Layer::getInput(){

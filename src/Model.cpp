@@ -21,7 +21,7 @@ Model::Model(string lossFct, double learningR) {
 }
 
 void Model::add(Layer lay, string activation) {
-	if (layers.size() != 0 && layers.back().getOutputSize() != lay.getInputSize()){
+	if (layers.size() > 0 && layers.back().getOutputSize() != lay.getInputSize()){
 		cout << "Wrong dimensions for layers" << endl;
 		exit(0);
 	}
