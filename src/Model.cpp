@@ -30,14 +30,14 @@ void Model::add(Layer lay, string activation) {
 }
 
 
-vector<double> Model::getOutputFor(vector<double> input){
+vector<double> Model::getOutputFor(vector<double> const & input){
 
 	// Copie de input dans un vecteur output qui va changer de couche
 	// en couche
-	vector<double> output;
+	vector<double> output(input);
 	// Passage dans chaque couche
 	for(int i = 0; i < layers.size(); i++){
-		output = layers[i].forwardPropagation(input);
+		layers[i].forwardPropagation(output);
 		activate(output, activationFunctions[i]);
 	}
 	return output;
@@ -67,16 +67,12 @@ void Model::activatePrime(vector<double>& values, string& function){
 
 void Model::backwardPropagation(vector<double> & dEY){
 	for (int i = layers.size() - 1; i>= 0; i--){
-		print("======Layer " + to_string(i) + "==========");
-		printV(dEY, "dEY avant activation");
-		vector<double> input(layers[i].getInput()); // copy of input to modify it without risk
+		vector<double> input(layers[i].getOutput()); // copy of input to modify it without risk
 		activatePrime(input, activationFunctions[i]);
 		for (int k = 0; k < input.size(); k++) {
 			dEY[k] *= input[k];
 		}
-		printV(dEY, "dEY apres activation");
 		layers[i].backwardPropagation(dEY, learningRate);
-		printV(dEY, "dEY apres backprop");
 	}
 }
 
@@ -107,14 +103,10 @@ void Model::fit(vector<vector<double>> trainingInput,
 		for(int d = 0; d < trainingInput.size(); d++){
 			// Calcul de la prédiction
 			vector<double> output = getOutputFor(trainingInput.at(d));
-			print("######NEW BACKPROP#######");
-			printV(trainingInput.at(d), "Input");
-			printV(output, "Output");
 			// Calcul de l'erreur pour chaque epoch, uniquement pour le visuel
 			err += loss(trainingOutput.at(d), output)/trainingInput.size();
 			// BackPropagation
 			vector<double> dEY = lossPrime(trainingOutput.at(d), output);
-			printV(dEY, "dE");
 			backwardPropagation(dEY);
 		}
 		cout << "Epoch " << e+1 << "/" << epochs <<" with error : " << err << " (" << lossFunction << ")" << endl;

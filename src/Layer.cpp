@@ -36,36 +36,28 @@ using std::vector;
 					    bias[j] = 0.2;
 					}
 		b = bias;
+
+		vector<double> in (neuronesEntree, 0);
+		input = in;
+		vector<double> out (neuronesSortie, 0);
+		output = out;
 		
 	}
-	
-	// Constructeur par défaut
-	Layer::Layer(){}
-	
-	// Destructeur
-	
-	Layer::~Layer(){
-		for (int i = 0; i < w.size(); i++){
-			w[i].clear();
-		}
-		w.clear();
-		b.clear();
-	}
-	
-	vector<double> Layer::forwardPropagation(vector<double> const & in){
-		input = in;
-		vector<double> out;
+
+	void Layer::forwardPropagation(vector<double> & in){
+		//Copy of in into input
+		for (int i = 0; i < input.size(); i++) input[i] = in[i];
+		in.resize(w[0].size(), 0);
 		for (int n = 0; n < w[0].size(); n++){
 			// Calcul sum xi*wij
 			double s = 0;
-			for (int i = 0; i < in.size(); i++){
-				s += w[i][n]*in[i];
+			for (int i = 0; i < input.size(); i++){
+				s += w[i][n]*input[i];
 
 			}
-			out.push_back(b[n] + s);
+			in[n] = b[n] + s;
+			output[n] = in[n];
 		}
-		output = out;
-		return out;
 	}
 
 	void Layer::backwardPropagation(vector<double> & dEY, double const& learningRate){
@@ -75,7 +67,7 @@ using std::vector;
 		vector<vector<double>> dEW(nombreEntree);
 		for(int i = 0; i < nombreEntree; i++)
 		{
-			dEW[i].resize(nombreSortie);
+			dEW[i].resize(nombreSortie, 0);
 			for(int j = 0; j < nombreSortie; j++){
 				dEW[i][j] = dEY[j]*input[i];
 			}
@@ -100,8 +92,6 @@ using std::vector;
 				dEY[i] += tmpdEY[j]*w[i][j];
 			}
 		}
-		printV(b, "biais apres backprop");
-		printM(w, "weight apres backprop");
 	}
 
 	int Layer::getInputSize(){

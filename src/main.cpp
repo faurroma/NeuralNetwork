@@ -14,7 +14,7 @@
 
 int main(){
 	cout << "Test beginning" << endl;
-	Model testMod("mse", 0.01);
+	Model testMod("mse", 0.1);
 	testMod.add(Layer(2, 4), "tanh");
 	testMod.add(Layer(4, 1), "tanh");
 
@@ -30,8 +30,13 @@ int main(){
 	vector<vector<double>> trainingInput = {i1, i2, i3, i4};
 	vector<vector<double>> trainingOutput = {o1, o2, o3, o4};
 	testMod.fit(trainingInput, trainingOutput, 1000);
-	vector<double> result = testMod.getOutputFor(i1);
-	printV(result, "Result");
+	vector<double> p1 = testMod.getOutputFor(i1);
+	vector<double> p2 = testMod.getOutputFor(i2);
+	vector<double> p3 = testMod.getOutputFor(i3);
+	vector<double> p4 = testMod.getOutputFor(i4);
+	vector<vector<double>> predicted = {p1, p2, p3, p4};
+	printM(trainingOutput, "Expected");
+	printM(predicted, "Prediction");
 	cout << endl << "Test end !" << endl;
 	return 0;
 

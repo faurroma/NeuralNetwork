@@ -96,7 +96,7 @@ double mse(vector<double> const & expected, vector<double> const & prediction){
 
 
 vector<double> msePrime(vector<double> const & expected, vector<double> const & prediction){
-	vector<double> result(expected.size());
+	vector<double> result(expected.size(), 0);
 	for(int i = 0; i < expected.size(); i++){
 		result[i] = 2*(prediction[i] - expected[i])/expected.size();
 	}
@@ -104,25 +104,25 @@ vector<double> msePrime(vector<double> const & expected, vector<double> const & 
 }
 
 void print(string toWrite){
-	// cout << toWrite << endl;
+	cout << toWrite << endl;
 }
 void printV(vector<double> const & values, string title) {
-	// cout << "   " <<title << ":" << endl;
-	// for (int i = 0; i<values.size(); i++){
-	// 	cout << values[i] << ",  ";
-	// }
-	// cout << endl << endl;
+	cout << "   " <<title << ":" << endl;
+	for (int i = 0; i<values.size(); i++){
+		cout << values[i] << ",  ";
+	}
+	cout << endl << endl;
 }
 
 void printM(vector<vector<double>> const & values, string title) {
-	// cout << "   " << title << ":" << endl;
-	// for (int i = 0; i<values.size(); i++){
-	// 	for (int j = 0; j<values[0].size(); j++){
-	// 		cout << values[i][j] << ",  ";
-	// 	}
-	// 	cout << endl;
-	// }
-	// cout << endl;
+	cout << "   " << title << ":" << endl;
+	for (int i = 0; i<values.size(); i++){
+		for (int j = 0; j<values[0].size(); j++){
+			cout << values[i][j] << ",  ";
+		}
+		cout << endl;
+	}
+	cout << endl;
 }
 
 

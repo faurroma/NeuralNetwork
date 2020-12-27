@@ -6,7 +6,7 @@ class Model {
 	public:
 		Model(std::string lossFct, double learningRvector);
 		void add(Layer lay, std::string activation);
-		std::vector<double> getOutputFor(std::vector<double> input);
+		std::vector<double> getOutputFor(std::vector<double> const & input);
 		void backwardPropagation(std::vector<double>& dEY);
 		void fit(std::vector<std::vector<double>> trainingInput,
 				 std::vector<std::vector<double>> trainingOutput, int epochs);

@@ -14,9 +14,8 @@ class Layer
 
 	// Constructeur avec valeurs
 	Layer(int neuronesEntree, int neuronesSortie);
-	Layer();
-	~Layer();
-	vector<double> forwardPropagation(vector<double> const & input);
+
+	void forwardPropagation(vector<double> & input);
 
 	void backwardPropagation(vector<double>  & dEY, double const& learningRate);
 
