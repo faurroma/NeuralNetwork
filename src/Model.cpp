@@ -77,8 +77,7 @@ void Model::backwardPropagation(vector<double> & dEY){
 }
 
 double Model::loss(vector<double>& expected, vector<double>& prediction){
-	if (lossFunction == "crossEntropy")              return crossEntropy(expected, prediction);
-	else if (lossFunction == "binaryCrossEntropy")   return binaryCrossEntropy(expected, prediction);
+	if (lossFunction == "binaryCrossEntropy")   return binaryCrossEntropy(expected, prediction);
 	else if (lossFunction == "mse")       			 return mse(expected, prediction);
 	else {
 		cout << "Wrong loss function name" << endl;
@@ -87,8 +86,7 @@ double Model::loss(vector<double>& expected, vector<double>& prediction){
 }
 
 vector<double> Model::lossPrime(vector<double>& expected, vector<double>& prediction){
-	if (lossFunction == "crossEntropy")              return crossEntropyPrime(expected, prediction);
-	else if (lossFunction == "binaryCrossEntropy")   return binaryCrossEntropyPrime(expected, prediction);
+	if (lossFunction == "binaryCrossEntropy")   return binaryCrossEntropyPrime(expected, prediction);
 	else if (lossFunction == "mse")                  return msePrime(expected, prediction);
 	else {
 		cout << "Wrong loss function name" << endl;

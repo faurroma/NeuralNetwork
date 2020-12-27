@@ -14,9 +14,9 @@
 
 int main(){
 	cout << "Test beginning" << endl;
-	Model testMod("mse", 0.1);
+	Model testMod("binaryCrossEntropy", 0.1);
 	testMod.add(Layer(2, 4), "tanh");
-	testMod.add(Layer(4, 1), "tanh");
+	testMod.add(Layer(4, 1), "sigmoid");
 
 	vector<double> i1 = {0, 0};
 	vector<double> i2 = {0, 1};

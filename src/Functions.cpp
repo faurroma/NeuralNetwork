@@ -13,12 +13,12 @@ using namespace std;
 
 void sigmoid(vector<double>& values){
 	for(int i = 0; i < values.size(); i++){
-		values[i] = exp(values[i])/(exp(values[i]) + 1);
+		values[i] = 1/(exp(-values[i]) + 1);
 	}
 }
 void sigmoidPrime(vector<double>& values){
 	for(int i = 0; i < values.size(); i++){
-		values[i] = exp(-values[i])/(exp(-values[i]) + 1)/(exp(-values[i]) + 1);
+		values[i] = 1/(exp(-values[i]) + 1) * (1 - 1/(exp(-values[i]) + 1));
 	}
 }
 
@@ -58,33 +58,22 @@ void stepPrime(vector<double>& values){
 	
 }
 double binaryCrossEntropy(vector<double> const & expected, vector<double> const & prediction){
-	double cost  = - expected[0] * log(prediction[0] + 0.00000000000001)
-				   - expected[1] * log(1 - prediction[0] + 0.00000000000001);
+	double cost  = 0;
+	for(int i = 0; i < expected.size(); i++){
+		cost += - (expected[i] * log(prediction[i] + 0.00000000000001)
+	                  + (1-expected[i]) * log(1-prediction[i] + 0.00000000000001));
+	}
 	return cost;
 }
 
 vector<double> binaryCrossEntropyPrime(vector<double> const & expected, vector<double> const & prediction){
-	vector<double> result {-expected[0]/(prediction[0]+0.000000000000001),
-						   -expected[1]/(1- prediction[0]+0.000000000000001)};
-	return result;
-}
-
-double crossEntropy(vector<double> const & expected, vector<double> const & prediction){
-	double cost = 0;
-	for (int i = 0; i < expected.size(); i++) {
-		cost += -expected[i] * log(prediction[i] + 0.00000000000001);
-	}
-	return cost;
-}
-
-
-vector<double> crossEntropyPrime(vector<double> const & expected, vector<double> const & prediction){
 	vector<double> result(expected.size());
 	for(int i = 0; i < expected.size(); i++){
-		result[i] = - expected[i]/(prediction[i]+0.000000000000001);
+		result[i] = (prediction[i] - expected[i])/(prediction[i]*(1-prediction[i]));
 	}
 	return result;
 }
+
 
 double mse(vector<double> const & expected, vector<double> const & prediction){
 	double cost = 0;
