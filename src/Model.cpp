@@ -66,21 +66,20 @@ void Model::activatePrime(vector<double>& values, string& function){
 }
 
 void Model::backwardPropagation(vector<double> & dEY){
-	vector<double> dEX(dEY);
 	for (int i = layers.size() - 1; i>= 0; i--){
 		vector<double> input(layers[i].getInput()); // copy of input to modify it without risk
 		activatePrime(input, activationFunctions[i]);
-		for (int k = 0; k < dEY.size(); k++) {
-			dEX[k] *= input[k];
+		for (int k = 0; k < input.size(); k++) {
+			dEY[k] *= input[k];
 		}
-		layers[i].backwardPropagation(dEX, learningRate);
+		layers[i].backwardPropagation(dEY, learningRate);
 	}
 }
 
 double Model::loss(vector<double>& expected, vector<double>& prediction){
-	if (lossFunction == "crossEntropy")         return crossEntropy(expected, prediction);
+	if (lossFunction == "crossEntropy")              return crossEntropy(expected, prediction);
 	else if (lossFunction == "binaryCrossEntropy")   return binaryCrossEntropy(expected, prediction);
-	else if (lossFunction == "mse")       return mse(expected, prediction);
+	else if (lossFunction == "mse")       			 return mse(expected, prediction);
 	else {
 		cout << "Wrong loss function name" << endl;
 		exit(0);
