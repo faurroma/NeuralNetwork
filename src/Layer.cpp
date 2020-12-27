@@ -9,6 +9,7 @@
 #include <vector>
 #include <stdlib.h>
 #include "Layer.hpp"
+#include "Functions.hpp"
 
 using namespace std;
 using std::vector;
@@ -25,14 +26,14 @@ using std::vector;
 		{
 			for(int j = 0; j<neuronesSortie; j++)
 			{
-				weight[i][j] = (double) rand()/ RAND_MAX - 0.5;
+				weight[i][j] = 0.2;
 			}
 		}
 		w = weight;
 		vector<double> bias(neuronesSortie);
 		for(int j = 0; j<neuronesSortie; j++)
 					{
-					    bias[j] = (double) rand()/ RAND_MAX - 0.5;
+					    bias[j] = 0.2;
 					}
 		b = bias;
 		
@@ -91,14 +92,16 @@ using std::vector;
 		for (int j = 0; j < nombreSortie; j++){
 			b[j] -= learningRate * dEY[j];
 		}
-		// Calcul de dE/dx
-		vector<double> dEX(nombreEntree, 0);
+		//Calcul de dE/dx
+		vector<double> tmpdEY(dEY);
+		dEY.resize(nombreEntree, 0);
 		for (int i = 0; i < nombreEntree; i++){
 			for (int j = 0; j < nombreSortie; j++){
-				dEX[i] += dEY[j]*w[i][j];
+				dEY[i] += tmpdEY[j]*w[i][j];
 			}
 		}
-		dEY = dEX;
+		printV(b, "biais apres backprop");
+		printM(w, "weight apres backprop");
 	}
 
 	int Layer::getInputSize(){

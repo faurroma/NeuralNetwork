@@ -21,21 +21,23 @@ void stepPrime(std::vector<double>& values);
 
 
 // LOSS FUNCTIONS AND THEIR DERIVATIVE
-double crossEntropy(vector<double> &expected, vector<double>& prediction);
+double crossEntropy(vector<double> const & expected, vector<double> const & prediction);
 
-vector<double> crossEntropyPrime(vector<double>& expected, vector<double>& prediction);
+vector<double> crossEntropyPrime(vector<double> const & expected, vector<double> const & prediction);
 
-double binaryCrossEntropy(vector<double>& expected, vector<double>& prediction);
+double binaryCrossEntropy(vector<double> const & expected, vector<double> const & prediction);
 
-vector<double> binaryCrossEntropyPrime(vector<double>& expected, vector<double>& prediction);
+vector<double> binaryCrossEntropyPrime(vector<double> const & expected, vector<double> const & prediction);
 
-double mse(vector<double>& expected, vector<double>& prediction);
+double mse(vector<double> const & expected, vector<double> const & prediction);
 
-vector<double> msePrime(vector<double>& expected, vector<double>& prediction);
+vector<double> msePrime(vector<double> const & expected, vector<double> const & prediction);
 
 // USEFUL FUNCTIONS
-void printV(vector<double> values, string title);
+void print(string);
 
-void printM(vector<vector<double>> values, string title);
+void printV(vector<double> const & values, string title);
+
+void printM(vector<vector<double>> const & values, string title);
 
 #endif /* INCLUDE_FUNCTIONS_HPP_ */

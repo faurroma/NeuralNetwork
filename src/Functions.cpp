@@ -57,19 +57,19 @@ void step(std::vector<double>& values){
 void stepPrime(vector<double>& values){
 	
 }
-double binaryCrossEntropy(vector<double>& expected, vector<double>& prediction){
+double binaryCrossEntropy(vector<double> const & expected, vector<double> const & prediction){
 	double cost  = - expected[0] * log(prediction[0] + 0.00000000000001)
 				   - expected[1] * log(1 - prediction[0] + 0.00000000000001);
 	return cost;
 }
 
-vector<double> binaryCrossEntropyPrime(vector<double>& expected, vector<double>& prediction){
+vector<double> binaryCrossEntropyPrime(vector<double> const & expected, vector<double> const & prediction){
 	vector<double> result {-expected[0]/(prediction[0]+0.000000000000001),
 						   -expected[1]/(1- prediction[0]+0.000000000000001)};
 	return result;
 }
 
-double crossEntropy(vector<double>& expected, vector<double>& prediction){
+double crossEntropy(vector<double> const & expected, vector<double> const & prediction){
 	double cost = 0;
 	for (int i = 0; i < expected.size(); i++) {
 		cost += -expected[i] * log(prediction[i] + 0.00000000000001);
@@ -78,7 +78,7 @@ double crossEntropy(vector<double>& expected, vector<double>& prediction){
 }
 
 
-vector<double> crossEntropyPrime(vector<double>& expected, vector<double>& prediction){
+vector<double> crossEntropyPrime(vector<double> const & expected, vector<double> const & prediction){
 	vector<double> result(expected.size());
 	for(int i = 0; i < expected.size(); i++){
 		result[i] = - expected[i]/(prediction[i]+0.000000000000001);
@@ -86,7 +86,7 @@ vector<double> crossEntropyPrime(vector<double>& expected, vector<double>& predi
 	return result;
 }
 
-double mse(vector<double>& expected, vector<double>& prediction){
+double mse(vector<double> const & expected, vector<double> const & prediction){
 	double cost = 0;
 	for (int i = 0; i < expected.size(); i++) {
 		cost += (expected[i] -prediction[i])*(expected[i] -prediction[i])/expected.size();
@@ -95,7 +95,7 @@ double mse(vector<double>& expected, vector<double>& prediction){
 }
 
 
-vector<double> msePrime(vector<double>& expected, vector<double>& prediction){
+vector<double> msePrime(vector<double> const & expected, vector<double> const & prediction){
 	vector<double> result(expected.size());
 	for(int i = 0; i < expected.size(); i++){
 		result[i] = 2*(prediction[i] - expected[i])/expected.size();
@@ -103,24 +103,26 @@ vector<double> msePrime(vector<double>& expected, vector<double>& prediction){
 	return result;
 }
 
-
-void printV(vector<double> values, string title) {
-	cout << title << ":" << endl;
-	for (int i = 0; i<values.size(); i++){
-		cout << values[i] << ",  ";
-	}
-	cout << endl << endl;
+void print(string toWrite){
+	// cout << toWrite << endl;
+}
+void printV(vector<double> const & values, string title) {
+	// cout << "   " <<title << ":" << endl;
+	// for (int i = 0; i<values.size(); i++){
+	// 	cout << values[i] << ",  ";
+	// }
+	// cout << endl << endl;
 }
 
-void printM(vector<vector<double>> values, string title) {
-	cout << title << ":" << endl;
-	for (int i = 0; i<values.size(); i++){
-		for (int j = 0; j<values[0].size(); j++){
-			cout << values[i][j] << ",  ";
-		}
-		cout << endl;
-	}
-	cout << endl;
+void printM(vector<vector<double>> const & values, string title) {
+	// cout << "   " << title << ":" << endl;
+	// for (int i = 0; i<values.size(); i++){
+	// 	for (int j = 0; j<values[0].size(); j++){
+	// 		cout << values[i][j] << ",  ";
+	// 	}
+	// 	cout << endl;
+	// }
+	// cout << endl;
 }
 
 
