@@ -42,21 +42,6 @@ void tanHPrime(vector<double>& values){
 			}
 }
 
-
-void step(std::vector<double>& values){
-	for(int i = 0; i < values.size(); i++){
-		if (values[i]<= 0){
-			values[i] = 0;
-		}
-		else {
-			values[i] = 1;
-		}
-	}
-}
-
-void stepPrime(vector<double>& values){
-	
-}
 double binaryCrossEntropy(vector<double> const & expected, vector<double> const & prediction){
 	double cost  = 0;
 	for(int i = 0; i < expected.size(); i++){

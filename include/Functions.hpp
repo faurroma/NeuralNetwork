@@ -15,11 +15,6 @@ void tanH(vector<double>& values);
 
 void tanHPrime(vector<double>& values);
 
-void step(std::vector<double>& values);
-
-void stepPrime(std::vector<double>& values);
-
-
 // LOSS FUNCTIONS AND THEIR DERIVATIVE
 double binaryCrossEntropy(vector<double> const & expected, vector<double> const & prediction);
 

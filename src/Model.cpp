@@ -46,7 +46,6 @@ vector<double> Model::getOutputFor(vector<double> const & input){
 void Model::activate(vector<double>& values, string& function){
 	if (function == "sigmoid")         sigmoid(values);
 	else if (function == "identity")   identity(values);
-	else if (function == "step")       step(values);
 	else if (function == "tanh")       tanH(values);
 	else {
 		cout << "Wrong activation function name" << endl;
@@ -57,7 +56,6 @@ void Model::activate(vector<double>& values, string& function){
 void Model::activatePrime(vector<double>& values, string& function){
 	if (function == "sigmoid")         sigmoidPrime(values);
 	else if (function == "identity")   identityPrime(values);
-	else if (function == "step")       stepPrime(values);
 	else if (function == "tanh")       tanHPrime(values);
 	else {
 		cout << "Wrong activation function name" << endl;
