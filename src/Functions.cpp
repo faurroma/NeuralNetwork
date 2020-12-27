@@ -104,7 +104,24 @@ vector<double> msePrime(vector<double>& expected, vector<double>& prediction){
 }
 
 
+void printV(vector<double> values, string title) {
+	cout << title << ":" << endl;
+	for (int i = 0; i<values.size(); i++){
+		cout << values[i] << ",  ";
+	}
+	cout << endl << endl;
+}
 
+void printM(vector<vector<double>> values, string title) {
+	cout << title << ":" << endl;
+	for (int i = 0; i<values.size(); i++){
+		for (int j = 0; j<values[0].size(); j++){
+			cout << values[i][j] << ",  ";
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
 
 
 

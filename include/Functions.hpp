@@ -34,6 +34,8 @@ double mse(vector<double>& expected, vector<double>& prediction);
 vector<double> msePrime(vector<double>& expected, vector<double>& prediction);
 
 // USEFUL FUNCTIONS
+void printV(vector<double> values, string title);
 
+void printM(vector<vector<double>> values, string title);
 
 #endif /* INCLUDE_FUNCTIONS_HPP_ */
