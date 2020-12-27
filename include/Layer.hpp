@@ -33,6 +33,8 @@ class Layer
 		vector<double> b;
 		vector<double> input;
 		vector<double> output;
+		int inputSize;
+		int outputSize;
 
 };
 
