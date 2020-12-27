@@ -25,11 +25,15 @@ using std::vector;
 		{
 			for(int j = 0; j<neuronesSortie; j++)
 			{
-				weight[i][j] = (double) rand()/ RAND_MAX;
+				weight[i][j] = (double) rand()/ RAND_MAX - 0.5;
 			}
 		}
 		w = weight;
-		vector<double> bias(neuronesSortie, 0);
+		vector<double> bias(neuronesSortie);
+		for(int j = 0; j<neuronesSortie; j++)
+					{
+					    bias[j] = (double) rand()/ RAND_MAX - 0.5;
+					}
 		b = bias;
 		
 	}
@@ -53,7 +57,7 @@ using std::vector;
 		for (int n = 0; n < w[0].size(); n++){
 			// Calcul sum xi*wij
 			double s = 0;
-			for (int i = 0; i < input.size(); i++){
+			for (int i = 0; i < in.size(); i++){
 				s += w[i][n]*in[i];
 
 			}
@@ -63,7 +67,7 @@ using std::vector;
 		return out;
 	}
 
-	vector<double> Layer::backwardPropagation(vector<double> const & dEY, double const& learningRate){
+	void Layer::backwardPropagation(vector<double> & dEY, double const& learningRate){
 		int nombreSortie = w[0].size();
 		int nombreEntree = w.size();
 		// Calcul de dE/dw
@@ -73,7 +77,6 @@ using std::vector;
 			dEW[i].resize(nombreSortie);
 			for(int j = 0; j < nombreSortie; j++){
 				dEW[i][j] = dEY[j]*input[i];
-
 			}
 		}
 
@@ -95,7 +98,7 @@ using std::vector;
 				dEX[i] += dEY[j]*w[i][j];
 			}
 		}
-		return dEX;
+		dEY = dEX;
 	}
 
 	int Layer::getInputSize(){

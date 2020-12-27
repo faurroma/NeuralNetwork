@@ -34,10 +34,7 @@ vector<double> Model::getOutputFor(vector<double> input){
 
 	// Copie de input dans un vecteur output qui va changer de couche
 	// en couche
-	vector<double> output;
-	for (int i=0; i<input.size(); i++) {
-	        output.push_back(input[i]);
-	}
+	vector<double> output(input);
 	// Passage dans chaque couche
 	for(int i = 0; i < layers.size(); i++){
 		output = layers[i].forwardPropagation(output);
@@ -53,6 +50,7 @@ void Model::activate(vector<double>& values, string& function){
 	else if (function == "tanh")       tanH(values);
 	else {
 		cout << "Wrong activation function name" << endl;
+		exit(0);
 	}
 }
 
@@ -67,19 +65,15 @@ void Model::activatePrime(vector<double>& values, string& function){
 	}
 }
 
-void Model::backwardPropagation(vector<double>& dEY){
-	vector<double> dEX;
-	// Copie de dEY dans dEX
-	for (int i=0; i<dEY.size(); i++) {
-		dEX.push_back(dEY[i]);
-	}
+void Model::backwardPropagation(vector<double> & dEY){
+	vector<double> dEX(dEY);
 	for (int i = layers.size() - 1; i>= 0; i--){
 		vector<double> input(layers[i].getInput()); // copy of input to modify it without risk
 		activatePrime(input, activationFunctions[i]);
-		for (int k = 0; k < dEX.size(); k++) {
+		for (int k = 0; k < dEY.size(); k++) {
 			dEX[k] *= input[k];
 		}
-		dEX = layers[i].backwardPropagation(dEX, learningRate);
+		layers[i].backwardPropagation(dEX, learningRate);
 	}
 }
 
@@ -111,11 +105,9 @@ void Model::fit(vector<vector<double>> trainingInput,
 			// Calcul de la prédiction
 			vector<double> output = getOutputFor(trainingInput[d]);
 			// Calcul de l'erreur pour chaque epoch, uniquement pour le visuel
-			err += loss(trainingOutput[d], output);
+			err += loss(trainingOutput[d], output)/trainingInput.size();
 			// BackPropagation
 			vector<double> dEY = lossPrime(trainingOutput[d], output);
-			for (int i = 0; i < dEY.size(); i++) cout << dEY[i] << " ";
-			cout << endl;
 			backwardPropagation(dEY);
 		}
 		cout << "Epoch " << e+1 << "/" << epochs <<" with error : " << err << " (" << lossFunction << ")" << endl;

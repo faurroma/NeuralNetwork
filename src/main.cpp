@@ -8,6 +8,7 @@
 #include <string>
 #include "Layer.hpp"
 #include "Model.hpp"
+#include "Functions.hpp"
 
 
 
@@ -28,7 +29,7 @@ int main(){
 	vector<double> o4 = {0};
 	vector<vector<double>> trainingInput = {i1, i2, i3, i4};
 	vector<vector<double>> trainingOutput = {o1, o2, o3, o4};
-	testMod.fit(trainingInput, trainingOutput, 1000);
+	testMod.fit(trainingInput, trainingOutput, 200);
 	vector<double> result = testMod.getOutputFor(i1);
 	for (int i = 0; i < result.size(); i++) cout << result[i] << " ";
 	cout << endl << "Test end !" << endl;

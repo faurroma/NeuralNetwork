@@ -18,7 +18,7 @@ class Layer
 	~Layer();
 	vector<double> forwardPropagation(vector<double> const & input);
 
-	vector<double> backwardPropagation(vector<double> const & dEY, double const& learningRate);
+	void backwardPropagation(vector<double>  & dEY, double const& learningRate);
 
 	int getInputSize();
 
