@@ -26,14 +26,14 @@ using std::vector;
 		{
 			for(int j = 0; j<neuronesSortie; j++)
 			{
-				weight[i][j] = 0.2;
+				weight[i][j] = (double) rand() / RAND_MAX - 0.5;
 			}
 		}
 		w = weight;
 		vector<double> bias(neuronesSortie);
 		for(int j = 0; j<neuronesSortie; j++)
 					{
-					    bias[j] = 0.2;
+					    bias[j] = (double) rand() / RAND_MAX - 0.5;
 					}
 		b = bias;
 
