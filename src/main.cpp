@@ -55,6 +55,16 @@ int main (){
 	    cout << "Nbr of training labels = " << dataset.training_labels.size() << endl;
 	    cout << "Nbr of test images = " << dataset.test_images.size() << endl;
 	    cout << "Nbr of test labels = " << dataset.test_labels.size() << endl;
+	    binarize_dataset(dataset);
+		cout << "   " << "Images" << ":" << endl;
+		for (int i = 0; i<dataset.training_images.size(); i++){
+			for (int j = 0; j<dataset.training_images[0].size(); j++){
+				cout << dataset.training_images[i][j] << ",  ";
+			}
+			cout << endl;
+		}
+		cout << endl;
 }
+Tas pas pull les trucs
 
 
