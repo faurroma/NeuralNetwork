@@ -75,8 +75,9 @@ int main (){
 			}
 			cout << "Learning..." << endl;
 			Model testMod("mse", 0.1	);
-			testMod.add(Layer(28*28, 15), "sigmoid");
-			testMod.add(Layer(15, 10), "sigmoid");
+			testMod.add(Layer(28*28, 150), "sigmoid");
+			testMod.add(Layer(150, 50), "sigmoid");
+			testMod.add(Layer(50, 10), "sigmoid");
 			testMod.fit(trainingInput, trainingOutput, 10);
 			cout << "***Learning END***" << endl << endl;
 
