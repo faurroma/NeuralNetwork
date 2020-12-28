@@ -15,7 +15,6 @@
 using namespace std;
 
 Model::Model(string lossFct, double learningR) {
-	cout << "New sequential network" << endl;
 	learningRate = learningR;
 	lossFunction = lossFct;
 }

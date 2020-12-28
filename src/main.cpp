@@ -73,28 +73,14 @@ int main (){
 				trainingOutput[i].resize(10, 0);
 				trainingOutput[i][(int) dataset.training_labels[i]] = 1;
 			}
-			cout << "Test beginning" << endl;
-			Model testMod("mse", 0.1);
+			cout << "Learning..." << endl;
+			Model testMod("mse", 0.1	);
 			testMod.add(Layer(28*28, 15), "sigmoid");
 			testMod.add(Layer(15, 10), "sigmoid");
-			testMod.fit(trainingInput, trainingOutput, 30);
-			printM(trainingOutput, "Expected");
+			testMod.fit(trainingInput, trainingOutput, 10);
+			cout << "***Learning END***" << endl << endl;
 
-
-			for (int i = 0; i < nbImages; i++){
-				vector<double> p = testMod.getOutputFor(trainingInput[i]);
-				cout << "Chiffre réel :" << endl;
-				int lab = dataset.training_labels[i];
-				cout << lab << endl;
-				cout << "Chiffre trouvé :" << endl;
-				for (int j = 0; j < 10; j++){
-					cout << p[j] << " ";
-				}
-
-				cout << endl;
-			}
-
-			cout << "******************** Fichier Test ***************************" << endl;
+			cout << "Testing...";
 			int nbImagesTest = dataset.test_images.size();
 			int tailleImagesTest = dataset.test_images[0].size();
 			vector<vector<double>> testInput(nbImages);
@@ -110,46 +96,44 @@ int main (){
 
 			for (int i = 0; i < nbImagesTest; i++){
 				vector<double> p = testMod.getOutputFor(testInput[i]);
-				int s = 0;
-				for (int j = 0; j < 28*28; j++){
-					s += 1;
-					if (testInput[i][j] > 150/255){
-						cout << "#";
-					}
-					else{
-						cout << " ";
-					}
-					if (s%28 == 0){
-						cout << endl;
-					}
-				}
-				cout << "ChiffreTest réel :" << endl;
 				int lab = dataset.test_labels[i];
-				cout << lab << endl;
-				cout << "ChiffreTest trouvé :" << endl;
-				for (int j = 0; j < 10; j++){
-					cout << p[j] << " ";
-				}
 				int maxElementIndex = std::max_element(p.begin(),p.end()) - p.begin();
 				if (maxElementIndex == lab){
 					reussi += 1;
 				}
 				else{
 					rate += 1;
+//					cout << "ChiffreTest réel :" << endl;
+//					cout << lab << endl;
+//					cout << "ChiffreTest trouvé :" << endl;
+//					cout << maxElementIndex << endl << " with probabilities : " << endl;
+//					for (int j = 0; j < 10; j++){
+//						cout << p[j] << " ";
+//					}
+//					cout << endl;
+//					int s = 0;
+//					for (int j = 0; j < 28*28; j++){
+//						s += 1;
+//						if (testInput[i][j] > 150/255){
+//							cout << "#";
+//						}
+//						else{
+//							cout << " ";
+//							}
+//						if (s%28 == 0){
+//							cout << endl;
+//						}
+//					}
 				}
-
-				cout << endl;
 			}
-
+			float accuracy = (double) reussi/nbImagesTest;
+			cout << "finished";
 			cout << endl;
 			cout << endl;
-			cout << "****************************************************************************" << endl;
-			cout << "                                    Resultats                                 " << endl;
-			cout << "****************************************************************************" << endl;
-			cout << "Réussis : " << reussi << endl;
-			cout << "Ratés : " << rate << endl;
+			cout << "*********** Resultats*********" << endl;
+			cout << "     ACCURACY : " << accuracy << endl;
+			cout << "******************************" << endl;
 
-			cout << endl << "Test end !" << endl;
 			return 0;
 }
 
