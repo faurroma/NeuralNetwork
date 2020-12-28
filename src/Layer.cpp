@@ -63,18 +63,38 @@ using std::vector;
 		}
 	}
 
-	void Layer::backwardPropagation(vector<double> & dEY, double const& learningRate){
-		vector<double> cpdEY(dEY);
-		dEY.resize(inputSize, 0);
-		for(int j = 0; j < outputSize; j++)
+	voiint nombreSortie = w[0].size();
+		int nombreEntree = w.size();
+		// Calcul de dE/dw
+		vector<vector<double>> dEW(nombreEntree);
+		for(int i = 0; i < nombreEntree; i++)
 		{
-			for(int i = 0; i < inputSize; i++){
-				w[i][j] -= learningRate * cpdEY[j]*input[i];
-				dEY[i] += cpdEY[j]*w[i][j];
+			dEW[i].resize(nombreSortie, 0);
+			for(int j = 0; j < nombreSortie; j++){
+				dEW[i][j] = dEY[j]*input[i];
 			}
-			b[j] -= learningRate * cpdEY[j];
-
 		}
+
+		// Mise à jour de w
+		for (int i = 0; i < nombreEntree; i++){
+			for (int j = 0; j < nombreSortie; j++){
+			    w[i][j] -= learningRate * dEW[i][j];
+
+			}
+		}
+		// dE/db = dE/dy
+		for (int j = 0; j < nombreSortie; j++){
+			b[j] -= learningRate * dEY[j];
+		}
+		//Calcul de dE/dx
+		vector<double> tmpdEY(dEY);
+		dEY.resize(nombreEntree, 0);
+		for (int i = 0; i < nombreEntree; i++){
+			for (int j = 0; j < nombreSortie; j++){
+				dEY[i] += tmpdEY[j]*w[i][j];
+			}
+		}
+
 	}
 
 	int Layer::getInputSize(){
