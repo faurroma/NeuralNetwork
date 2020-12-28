@@ -1,6 +1,6 @@
 CC = g++
 INCLUDE = -Iinclude 
-OPTIONS =  -g
+OPTIONS =  -g -O3
 
 
 all: main.exe exe
@@ -9,5 +9,6 @@ main.exe:
 	$(CC) $(INCLUDE) $(OPTIONS) -o bin/main.exe src/*.cpp
 	
 exe:
-	./bin/main.exe
+	time ./bin/main.exe
+	
 	

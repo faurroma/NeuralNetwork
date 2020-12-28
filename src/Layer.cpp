@@ -50,7 +50,7 @@ using std::vector;
 	void Layer::forwardPropagation(vector<double> & in){
 		//Copy of in into input
 		for (int i = 0; i < inputSize; i++) input[i] = in[i];
-		in.resize(outputSize, 0);
+		in.resize(outputSize);
 		for (int n = 0; n < outputSize; n++){
 			// Calcul sum xi*wij
 			double s = 0;
