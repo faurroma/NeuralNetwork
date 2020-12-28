@@ -63,7 +63,8 @@ using std::vector;
 		}
 	}
 
-	voiint nombreSortie = w[0].size();
+	void Layer::backwardPropagation(vector<double> & dEY, double const& learningRate){
+		int nombreSortie = w[0].size();
 		int nombreEntree = w.size();
 		// Calcul de dE/dw
 		vector<vector<double>> dEW(nombreEntree);
