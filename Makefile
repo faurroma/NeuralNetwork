@@ -9,7 +9,7 @@ main.exe:
 	$(CC) $(INCLUDE) $(OPTIONS) -o bin/main.exe src/*.cpp
 	
 exe:
-	time ./bin/main.exe
+	./bin/main.exe
 
 debug:
 	gdb bin/main.exe

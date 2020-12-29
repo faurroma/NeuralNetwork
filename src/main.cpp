@@ -19,15 +19,15 @@
 using namespace std;
 
 int main (){
-	vector<double> i1 = {0, 0};
-	vector<double> i2 = {0, 1};
-	vector<double> i3 = {1, 0};
-	vector<double> i4 = {1, 1};
-	Model same = Model::read("XOR.model");
-	cout << same.getOutputFor(i1)[0] << endl;
-	cout << same.getOutputFor(i2)[0] << endl;
-	cout << same.getOutputFor(i3)[0] << endl;
-	cout << same.getOutputFor(i4)[0] << endl;
+
+	vector<vector<double>> trainingInput = mnist::getTrainingInput();
+
+	vector<vector<double>> trainingOutput = mnist::getTrainingOutput();
+
+	Model copy = Model::read("MNIST.model");
+
+	printV(trainingOutput[16], "expected");
+	printV(copy.getOutputFor(trainingInput[16]), "result");
 
 }
 
