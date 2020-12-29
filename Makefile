@@ -10,5 +10,8 @@ main.exe:
 	
 exe:
 	time ./bin/main.exe
+
+debug:
+	gdb bin/main.exe
 	
 	

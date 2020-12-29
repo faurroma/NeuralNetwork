@@ -92,3 +92,19 @@ using std::vector;
 	vector<double> Layer::getOutput(){
 		return output;
 	}
+
+	double Layer::getW(int i, int j){
+		return w[i][j];
+	}
+
+	void Layer::setW(int i, int j, double value){
+		w[i][j] = value;
+	}
+
+	double Layer::getB(int j){
+		return b[j];
+	}
+
+	void Layer::setB(int j, double value){
+		b[j] = value;
+	}

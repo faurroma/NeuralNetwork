@@ -6,6 +6,7 @@
  * <3 <3 Tichahhh <3 <3
  */
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include "Layer.hpp"
@@ -106,4 +107,106 @@ void Model::fit(vector<vector<double>> trainingInput,
 		}
 		cout << "Epoch " << e+1 << "/" << epochs <<" with error : " << err << " (" << lossFunction << ")" << endl;
 	}
+}
+
+void Model::write(string name){
+	ofstream file;
+	file.open("models/" + name, ios::out);
+	file << "# LOSS FUNCTION" << endl;
+	file << lossFunction << endl;
+	file << "# LEARNING RATE" << endl;
+	file << learningRate << endl;
+	file << "# BEGGINING OF LAYERS DESCRIPTION" << endl;
+	int c = 0;
+	for (Layer lay: layers){
+		file << "#*******LAYER " << c << "******" << endl;
+		file << "# DIMENSIONS" << endl;
+		file << lay.getInputSize() << "x" << lay.getOutputSize() << endl;
+		file << "# ACTIVATION FUNCTION" << endl;
+		file << activationFunctions[c] << endl;
+		file << "# WEIGHTS" << endl;
+		for(int i = 0; i < lay.getInputSize(); i++){
+			for(int j = 0; j < lay.getOutputSize(); j++){
+				file << lay.getW(i,j) << " ";
+			}
+			file << endl;
+		}
+		file << "# BIAS" << endl;
+		for (int j = 0; j < lay.getOutputSize(); j++){
+			file << lay.getB(j) << endl;
+		}
+		c++;
+	}
+	file.close();
+ }
+
+Model Model::read(string name){
+	string lossFct;
+	double learningR;
+	string buffer;
+	ifstream file;
+	file.open("models/" + name);
+	// GET LOSS FUNCTION
+	getline(file, buffer);
+	while(buffer[0] == '#'){
+		getline(file, buffer);
+	}
+	lossFct = buffer;
+	//GET LEARNING RATE
+	getline(file, buffer);
+	while(buffer[0] == '#'){
+		getline(file, buffer);
+	}
+	learningR = stoi(buffer);
+	// CREATE MODEL
+	Model mod(lossFct, learningR);
+	// START LAYERS READING
+	getline(file, buffer);
+	while(buffer[0] == '#'){
+		getline(file, buffer);
+	}
+	while(!file.eof()){
+		// GET DIMENSIONS
+		int inputSize;
+		int outputSize;
+		int pos = buffer.find("x");
+		inputSize = stoi(buffer.substr(0, pos));
+		buffer.erase(0, pos+1);
+		outputSize = stoi(buffer);
+		// GET ACTIVATION FUNCTION
+		string actFct;
+		getline(file, buffer);
+		while(buffer[0] == '#'){
+			getline(file, buffer);
+		}
+		actFct = buffer;
+		Layer toAdd(inputSize, outputSize);
+		// READ WEIGHTS
+		for (int i = 0; i < inputSize; i++){
+			int j = 0;
+			getline(file, buffer);
+			while(buffer[0] == '#'){
+				getline(file, buffer);
+			}
+			while ((pos = buffer.find(" ")) != string::npos) {
+				toAdd.setW(i, j, stod(buffer.substr(0, pos), NULL));
+				buffer.erase(0, pos + 1);
+				j++;
+			}
+		}
+		// READ BIAS
+		for (int j = 0; j < outputSize; j++){
+			getline(file, buffer);
+			while(buffer[0] == '#'){
+				getline(file, buffer);
+			}
+			toAdd.setB(j, stod(buffer, NULL));
+		}
+		mod.add(toAdd, actFct);
+		getline(file, buffer);
+		while(buffer[0] == '#'){
+			getline(file, buffer);
+		}
+	}
+	return mod;
 }

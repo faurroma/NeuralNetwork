@@ -10,6 +10,8 @@ class Model {
 		void backwardPropagation(std::vector<double>& dEY);
 		void fit(std::vector<std::vector<double>> trainingInput,
 				 std::vector<std::vector<double>> trainingOutput, int epochs);
+		void write(string name);
+		static Model read(string name);
 	private:
 		std::vector<Layer> layers;
 		std::vector<std::string> activationFunctions;

@@ -19,6 +19,14 @@ class Layer
 
 	void backwardPropagation(vector<double>  & dEY, double const& learningRate);
 
+	double getW(int i, int j);
+
+	void setW(int i, int j, double value);
+
+	double getB(int j);
+
+	void setB(int j, double value);
+
 	int getInputSize();
 
 	int getOutputSize();
