@@ -6,7 +6,7 @@ OPTIONS =  -g -O3
 all: main.exe exe
 
 main.exe:
-	$(CC) $(INCLUDE) $(OPTIONS) -o bin/main.exe src/*.cpp
+	$(CC) $(INCLUDE) $(OPTIONS) -o bin/main.exe src/**.cpp
 	
 exe:
 	./bin/main.exe

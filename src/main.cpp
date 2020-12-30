@@ -20,9 +20,9 @@ using namespace std;
 
 int main (){
 
-	vector<vector<double>> trainingInput = mnist::getTrainingInput();
+	vector<vector<double>> trainingInput = getTrainingInput();
 
-	vector<vector<double>> trainingOutput = mnist::getTrainingOutput();
+	vector<vector<double>> trainingOutput = getTrainingOutput();
 
 	Model copy = Model::read("MNIST.model");
 
