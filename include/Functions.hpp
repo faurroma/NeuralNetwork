@@ -3,32 +3,30 @@
 
 
 // ACTIVATION FUNCTIONS AND THEIR DERIVATIVE
-void sigmoid(std::vector<double>& values);
+void sigmoid(std::vector<std::vector<double>>& values);
 
-void sigmoidPrime(std::vector<double>& values);
+void sigmoidPrime(std::vector<std::vector<double>> & values);
 
-void identity(std::vector<double>& values);
+void tanH(std::vector<std::vector<double>> & values);
 
-void identityPrime(std::vector<double>& values);
-
-void tanH(vector<double>& values);
-
-void tanHPrime(vector<double>& values);
+void tanHPrime(std::vector<std::vector<double>> & values);
 
 // LOSS FUNCTIONS AND THEIR DERIVATIVE
-double binaryCrossEntropy(vector<double> const & expected, vector<double> const & prediction);
+double binaryCrossEntropy(std::vector<std::vector<double>> const & expected, std::vector<std::vector<double>> const & prediction);
 
-vector<double> binaryCrossEntropyPrime(vector<double> const & expected, vector<double> const & prediction);
+std::vector<std::vector<double>> binaryCrossEntropyPrime(std::vector<std::vector<double>> const & expected, std::vector<std::vector<double>> const & prediction);
 
-double mse(vector<double> const & expected, vector<double> const & prediction);
+double mse(std::vector<std::vector<double>> const & expected, std::vector<std::vector<double>> const & prediction);
 
-vector<double> msePrime(vector<double> const & expected, vector<double> const & prediction);
+std::vector<std::vector<double>> msePrime(std::vector<std::vector<double>> const & expected, std::vector<std::vector<double>> const & prediction);
 
 // USEFUL FUNCTIONS
-void print(string);
+void print(std::string);
 
-void printV(vector<double> const & values, string title);
+void printV(std::vector<double> const & values, std::string title);
 
-void printM(vector<vector<double>> const & values, string title);
+void printM(std::vector<std::vector<double>> const & values, std::string title);
+
+std::vector<std::vector<double>> vectorToMatrix(std::vector<double>& vec);
 
 #endif /* INCLUDE_FUNCTIONS_HPP_ */

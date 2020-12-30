@@ -20,14 +20,7 @@ using namespace std;
 
 int main (){
 
-	vector<vector<double>> trainingInput = getTrainingInput();
-
-	vector<vector<double>> trainingOutput = getTrainingOutput();
-
-	Model copy = Model::read("MNIST.model");
-
-	printV(trainingOutput[16], "expected");
-	printV(copy.getOutputFor(trainingInput[16]), "result");
+	exempleMNIST();
 
 }
 
