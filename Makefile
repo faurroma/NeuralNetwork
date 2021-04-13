@@ -6,6 +6,7 @@ OPTIONS =  -g -O3
 all: main.exe exe
 
 main.exe:
+	mkdir -p bin
 	$(CC) $(INCLUDE) $(OPTIONS) -o bin/main.exe src/**.cpp
 	
 exe:

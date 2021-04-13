@@ -10,7 +10,7 @@
 
 #include "xor.hpp"
 #include "mnist.hpp"
-#include "Layer.hpp"
+#include "Layers.hpp"
 #include "Model.hpp"
 #include "Functions.hpp"
 #include "mnist/mnist_reader.hpp"

@@ -7,7 +7,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-#include "Layer.hpp"
+#include "Layers.hpp"
 #include "Model.hpp"
 #include "Functions.hpp"
 

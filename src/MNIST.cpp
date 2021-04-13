@@ -8,7 +8,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-#include "Layer.hpp"
+#include "Layers.hpp"
 #include "Model.hpp"
 #include "Functions.hpp"
 #include "mnist/mnist_reader.hpp"
