@@ -119,24 +119,24 @@ int main(){
 				}
 				else{
 					rate++;
-//					cout << "ChiffreTest réel :" << endl;
-//					cout << lab << endl;
-//					cout << "ChiffreTest trouvé :" << endl;
-//					cout << maxElementIndex << endl;
-//					printM(p, "Probs");
-//					int s = 0;
-//					for (int i = 0; i < 28*28; i++){
-//						s += 1;
-//						if (testInput[k][i/28][i%28] > 150/255){
-//							cout << "#";
-//						}
-//						else{
-//							cout << " ";
-//							}
-//						if (s%28 == 0){
-//							cout << endl;
-//						}
-//					}
+					cout << "ChiffreTest réel :" << endl;
+					cout << lab << endl;
+					cout << "ChiffreTest trouvé :" << endl;
+					cout << maxElementIndex << endl;
+					printM(p, "Probs");
+					int s = 0;
+					for (int i = 0; i < 28*28; i++){
+						s += 1;
+						if (testInput[k][i/28][i%28] > 150/255){
+							cout << "#";
+						}
+						else{
+							cout << " ";
+							}
+						if (s%28 == 0){
+							cout << endl;
+						}
+					}
 				}
 			}
 			float accuracy = (double) reussi/nbImagesTest;

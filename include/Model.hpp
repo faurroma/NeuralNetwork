@@ -72,14 +72,26 @@ class Model {
 					// Calcul de la prédiction
 					vector<vector<double>> output = getOutputFor(trainingInput.at(d));
 					// Calcul de l'erreur pour chaque epoch, uniquement pour le visuel
-					err += loss(trainingOutput.at(d), output)/trainingInput.size();
+					err += loss(trainingOutput.at(d), output);
+
 					// BackPropagation
 					vector<vector<double>> dEY = lossPrime(trainingOutput.at(d), output);
 					backwardPropagation(dEY);
+
+					// Progress bar
+					if ((d+1)%(int) (trainingInput.size()/50.)==0){
+						cout << "Epoch " << e+1 << "/" << epochs <<" [";
+						for(int k = 0; k<50; k++){
+							if (k/50.<(float)d/trainingInput.size()) cout << "=";
+							else                                     cout << "-";
+						}
+						cout << "] with error : " << err / d  << " (" << lossFunction << ")            " << "\r";
+						cout.flush();
+					}
 				}
-				cout << "Epoch " << e+1 << "/" << epochs <<" with error : " << err << " (" << lossFunction << ")" << endl;
-			}
+			cout << "\n";
 		}
+}
 
 //
 //		void write(string name);
