@@ -84,7 +84,7 @@ vector<vector<vector<double>>> getTestingOutput(){
 	}
 	return testingOutput;
 }
-int exempleMNIST(){
+int main(){
 			vector<vector<vector<double>>> trainingOutput = getTrainingOutput();
 			vector<vector<vector<double>>> trainingInput = getTrainingInput();
 			mnist::MNIST_dataset<vector, vector<uint8_t>, uint8_t> dataset =

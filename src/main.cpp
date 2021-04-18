@@ -20,7 +20,5 @@ using namespace std;
 
 int main (){
 
-	exempleMNIST();
-
 }
 
